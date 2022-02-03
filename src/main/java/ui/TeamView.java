@@ -15,7 +15,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
 
-public class LoginView {
+public class TeamView {
 
 	private JFrame frmFutbol;
 	private JButton loginButton;
@@ -27,7 +27,7 @@ public class LoginView {
 	/**
 	 * Create the application.
 	 */
-	public LoginView() {
+	public TeamView() {
 		userDAO.createUsername(new Username("Fran", "1234"));
 		initialize();
 		setListeners();
@@ -86,11 +86,9 @@ public class LoginView {
 				String username = usernameField.getText();
 				String password = new String(passwordField.getPassword());
 				if (userDAO.login(username,password)) {
-					frmFutbol.dispose();
-					new TeamView();
-				} else {
-					System.out.println("Incorrecto");
+					
 				}
+				
 			}
 		});
 	}
