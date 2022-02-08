@@ -31,6 +31,7 @@ public class LoginView extends UserDAO {
 	public LoginView() {
 		createUsername(new Account("Fran", "1234"));
 
+		//showUsersConsole();
 		initialize();
 		setListeners();
 		frmLogin.setVisible(true);
@@ -45,8 +46,6 @@ public class LoginView extends UserDAO {
 		frmLogin.setBounds(100, 100, 538, 380);
 		frmLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmLogin.getContentPane().setLayout(null);
-
-		showUsersConsole();
 
 		loginButton = new JButton("Login");
 		loginButton.setBounds(269, 230, 89, 23);
@@ -66,17 +65,17 @@ public class LoginView extends UserDAO {
 		frmLogin.getContentPane().add(passwordField);
 		passwordField.setColumns(10);
 
-		titleLabel = new JLabel("Inicio de sesión");
+		titleLabel = new JLabel("Login account");
 		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		titleLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
-		titleLabel.setBounds(124, 11, 269, 23);
+		titleLabel.setBounds(124, 23, 269, 23);
 		frmLogin.getContentPane().add(titleLabel);
 
 		titleError = new JLabel("");
 		titleError.setForeground(Color.RED);
 		titleError.setHorizontalAlignment(SwingConstants.LEFT);
 		titleError.setFont(new Font("Sylfaen", Font.PLAIN, 15));
-		titleError.setBounds(150, 243, 327, 23);
+		titleError.setBounds(150, 275, 327, 23);
 		frmLogin.getContentPane().add(titleError);
 
 		titleEmail = new JLabel("Email");
@@ -107,21 +106,44 @@ public class LoginView extends UserDAO {
 			}
 		});
 
-		loginButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String username = usernameField.getText();
-				String password = new String(passwordField.getPassword());
-				if (login(username, password)) {
-					frmLogin.dispose();
-					new TeamView();
-				} else {
-					if (usernameList.isEmpty()) {
-						titleError.setText("Not there accounts registered in the database");
-					} else {
-						titleError.setText("The account or password is incorrect");
-					}
+		passwordField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_UP) {
+					usernameField.requestFocus();
+				}
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					loginButtonAction();
 				}
 			}
 		});
+
+		loginButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				loginButtonAction();
+			}
+		});
+
+		registerButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frmLogin.dispose();
+				new RegisterView();
+			}
+		});
+	}
+	
+	public void loginButtonAction() {
+		String username = usernameField.getText();
+		String password = new String(passwordField.getPassword());
+		if (login(username, password)) {
+			frmLogin.dispose();
+			new TeamView();
+		} else {
+			if (usernameList.isEmpty()) {
+				titleError.setText("Not there accounts registered in the database");
+			} else {
+				titleError.setText("The account or password is incorrect");
+			}
+		}
 	}
 }
