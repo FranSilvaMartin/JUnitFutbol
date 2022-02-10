@@ -6,6 +6,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+
+import mainApp.FutbolApp;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -13,13 +16,15 @@ public class TeamView {
 
 	private JFrame frmTeam;
 	
+	private FutbolApp futbolApp;
 	private JButton closeButton;
 	
 	
 	/**
 	 * Create the application.
 	 */
-	public TeamView() {
+	public TeamView(FutbolApp futbolApp) {
+		this.futbolApp = futbolApp;
 		initialize();
 		setListeners();
 		frmTeam.setVisible(true);
@@ -55,7 +60,7 @@ public class TeamView {
 		closeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frmTeam.dispose();
-				new LoginView();
+				new LoginView(futbolApp);
 			}
 		});
 	}

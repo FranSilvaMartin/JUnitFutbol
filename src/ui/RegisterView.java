@@ -4,10 +4,14 @@ import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
 import dao.UserDAO;
+import mainApp.FutbolApp;
+import models.Account;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.ActionListener;
@@ -24,12 +28,14 @@ public class RegisterView extends UserDAO {
 	private JLabel titleLabel, titleError, titleEmail, titlePassword;
 	private JTextField emailField;
 	private JPasswordField passwordField;
-	private JPasswordField passwordField_1;
+	private JPasswordField passwordField2;
+	private FutbolApp futbolApp;
 
 	/**
 	 * Create the application.
 	 */
-	public RegisterView() {
+	public RegisterView(FutbolApp futbolApp) {
+		this.futbolApp = futbolApp;
 		initialize();
 		setListeners();
 		frmRegister.setVisible(true);
@@ -45,8 +51,6 @@ public class RegisterView extends UserDAO {
 		frmRegister.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmRegister.getContentPane().setLayout(null);
 
-		showUsersConsole();
-		
 		closeButton = new JButton("");
 		closeButton.setIcon(new ImageIcon(RegisterView.class.getResource("/resources/closeButtonIMG.png")));
 		closeButton.setOpaque(false);
@@ -92,28 +96,32 @@ public class RegisterView extends UserDAO {
 		titlePassword.setFont(new Font("Tahoma", Font.BOLD, 14));
 		titlePassword.setBounds(150, 130, 102, 14);
 		frmRegister.getContentPane().add(titlePassword);
-		
+
 		JLabel lblRepeatPassword = new JLabel("Repeat password");
 		lblRepeatPassword.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblRepeatPassword.setBounds(150, 189, 154, 23);
 		frmRegister.getContentPane().add(lblRepeatPassword);
-		
-		passwordField_1 = new JPasswordField();
-		passwordField_1.setColumns(10);
-		passwordField_1.setBounds(163, 214, 195, 23);
-		frmRegister.getContentPane().add(passwordField_1);
 
+		passwordField2 = new JPasswordField();
+		passwordField2.setColumns(10);
+		passwordField2.setBounds(163, 214, 195, 23);
+		frmRegister.getContentPane().add(passwordField2);
+
+		emailField.setText("rans.crater@gmail.com");
+		passwordField.setText("HolaeeeeaaQueTal#-123");
+		passwordField2.setText("HolaeeeeaaQueTal#-123");
+		
 	}
 
 	public void setListeners() {
-		
+
 		closeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frmRegister.dispose();
-				new LoginView();
+				new LoginView(futbolApp);
 			}
 		});
-		
+
 		emailField.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -122,5 +130,60 @@ public class RegisterView extends UserDAO {
 				}
 			}
 		});
+
+		passwordField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER || e.getKeyCode() == KeyEvent.VK_DOWN) {
+					passwordField2.requestFocus();
+				}
+
+				if (e.getKeyCode() == KeyEvent.VK_UP) {
+					emailField.requestFocus();
+				}
+			}
+		});
+
+		passwordField2.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					String email = emailField.getText();
+					String password = new String(passwordField.getPassword());
+					String password2 = new String(passwordField2.getPassword());
+					registerAccount(email, password, password2);
+				}
+
+				if (e.getKeyCode() == KeyEvent.VK_UP) {
+					passwordField.requestFocus();
+				}
+			}
+		});
+	}
+
+	public void registerAccount(String email, String password, String password2) {
+
+		boolean emptyFields = email.equals("") || password.equals("") || password2.equals("");
+		boolean requirementsEmail = futbolApp.getUserDAO().checkRequirementsEmail(email);
+		boolean requirementsPassword = futbolApp.getUserDAO().checkRequirementsPassword(password);
+		boolean samePassword = password.equals(password2);
+
+		if (!emptyFields) {
+			if (requirementsEmail && requirementsPassword && samePassword) {
+				futbolApp.getUserDAO().createUsername(new Account(email, password));
+				futbolApp.getUserDAO().showUsersConsole();
+				titleError.setText("Successfully registered");
+			}
+
+			if (!requirementsEmail) {
+				titleError.setText("Successfully registered");
+			} else if (!samePassword) {
+				titleError.setText("Same Password");
+			} else if (!requirementsPassword) {
+				titleError.setText("Requirements Password");
+			}
+		} else {
+			System.out.println("Campos vacios");
+		}
 	}
 }

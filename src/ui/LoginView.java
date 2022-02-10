@@ -7,7 +7,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
-import dao.UserDAO;
+import mainApp.FutbolApp;
 import models.Account;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -16,7 +16,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
 import java.awt.Color;
 
-public class LoginView extends UserDAO {
+public class LoginView {
 
 	private JFrame frmLogin;
 
@@ -24,14 +24,15 @@ public class LoginView extends UserDAO {
 	private JLabel titleLabel, titleError, titleEmail, titlePassword;
 	private JTextField usernameField;
 	private JPasswordField passwordField;
+	private FutbolApp futbolApp;
 
 	/**
 	 * Create the application.
 	 */
-	public LoginView() {
-		createUsername(new Account("Fran", "1234"));
-
-		//showUsersConsole();
+	public LoginView(FutbolApp futbolApp) {
+		this.futbolApp = futbolApp;
+		futbolApp.getUserDAO().createUsername(new Account("Fran", "1234"));
+		futbolApp.getUserDAO().showUsersConsole();
 		initialize();
 		setListeners();
 		frmLogin.setVisible(true);
@@ -88,7 +89,7 @@ public class LoginView extends UserDAO {
 		titlePassword.setBounds(150, 157, 102, 14);
 		frmLogin.getContentPane().add(titlePassword);
 
-		if (usernameList.isEmpty()) {
+		if (futbolApp.getUserDAO().usernameList.isEmpty()) {
 			titleError.setText("Not there accounts registered in the database");
 			loginButton.setVisible(false);
 			registerButton.setBounds(215, 182, 89, 23);
@@ -126,8 +127,8 @@ public class LoginView extends UserDAO {
 
 		registerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frmLogin.dispose();
-				new RegisterView();
+				frmLogin.setVisible(false);
+				new RegisterView(futbolApp);
 			}
 		});
 	}
@@ -135,11 +136,11 @@ public class LoginView extends UserDAO {
 	public void loginButtonAction() {
 		String username = usernameField.getText();
 		String password = new String(passwordField.getPassword());
-		if (login(username, password)) {
+		if (futbolApp.getUserDAO().login(username, password)) {
 			frmLogin.dispose();
-			new TeamView();
+			new TeamView(futbolApp);
 		} else {
-			if (usernameList.isEmpty()) {
+			if (futbolApp.getUserDAO().usernameList.isEmpty()) {
 				titleError.setText("Not there accounts registered in the database");
 			} else {
 				titleError.setText("The account or password is incorrect");

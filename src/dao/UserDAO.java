@@ -1,13 +1,12 @@
 package dao;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import models.Account;
 
 public class UserDAO {
 
-	protected List<Account> usernameList = new ArrayList<Account>();
+	public ArrayList<Account> usernameList = new ArrayList<Account>();
 
 	public void showUsersConsole() {
 		for (Account username : usernameList) {
@@ -19,9 +18,9 @@ public class UserDAO {
 		usernameList.add(user);
 	}
 
-	public boolean checkUsername(String email) {
+	public boolean checkEmail(String email) {
 		for (Account account : usernameList) {
-			if (account.getUsername().equalsIgnoreCase(email)) {
+			if (account.getEmail().equals(email)) {
 				return true;
 			}
 		}
@@ -32,9 +31,9 @@ public class UserDAO {
 		if (usernameList.isEmpty()) {
 			return false;
 		} else {
-			for (Account username : usernameList) {
-				if (usernameField.equalsIgnoreCase(username.getUsername())) {
-					if (passwordField.equals(username.getPassword())) {
+			for (Account account : usernameList) {
+				if (usernameField.equalsIgnoreCase(account.getEmail())) {
+					if (passwordField.equals(account.getPassword())) {
 						return true;
 					}
 				}
@@ -43,26 +42,27 @@ public class UserDAO {
 		return false;
 	}
 
-	public boolean checkRequirementsUsername(String emailField) {
-		
+	public boolean checkRequirementsEmail(String emailField) {
+
+		boolean noExists = checkEmail(emailField);
 		boolean characterSpecial = false; // @
 		boolean endDomain = false; // .com, .es y .net
-		
+
 		if (emailField.contains("@")) {
 			characterSpecial = true;
 		}
-		
+
 		if (emailField.endsWith(".com") || emailField.endsWith(".es") || emailField.endsWith(".net")) {
 			endDomain = true;
 		}
-		
-		if (!characterSpecial || !endDomain) {
+
+		if (!characterSpecial || !endDomain || noExists) {
 			return false;
 		} else {
 			return true;
 		}
 	}
-	
+
 	public boolean checkRequirementsPassword(String passwordField) {
 
 		boolean minimumCharacters = false;
@@ -79,7 +79,7 @@ public class UserDAO {
 				}
 
 				if (Character.isLowerCase(passwordField.charAt(i))) {
-					containsUppercase = true;
+					containsLowercase = true;
 				}
 
 				if (Character.isDigit(passwordField.charAt(i))) {
@@ -87,35 +87,33 @@ public class UserDAO {
 				}
 
 				// Characters Specials
-				// ºª!"·$%&/()=\|#
-
-				if (passwordField.contains("º") || passwordField.contains("ª") || passwordField.contains("!")
-						|| passwordField.contains("\"") || passwordField.contains(".") || passwordField.contains("·")
-						|| passwordField.contains("$") || passwordField.contains("%") || passwordField.contains("&")
-						|| passwordField.contains("/") || passwordField.contains("(") || passwordField.contains("(")
-						|| passwordField.contains("=") || passwordField.contains("\"") || passwordField.contains("|")
-						|| passwordField.contains("#")) {
-					characterSpecial = true;
-				}
+				// ºª!"·$%&/()=\|#@
 			}
+
+			if (passwordField.contains("º") || passwordField.contains("ª") || passwordField.contains("!")
+					|| passwordField.contains("\"") || passwordField.contains(".") || passwordField.contains("·")
+					|| passwordField.contains("$") || passwordField.contains("%") || passwordField.contains("&")
+					|| passwordField.contains("/") || passwordField.contains("(") || passwordField.contains("(")
+					|| passwordField.contains("=") || passwordField.contains("\"") || passwordField.contains("|")
+					|| passwordField.contains("#") || passwordField.contains("@")) {
+				characterSpecial = true;
+			}
+		} else {
+			minimumCharacters = false;
 		}
 
-		if (!minimumCharacters || !containsUppercase || !containsLowercase || !containsDigit || !characterSpecial) {
-			return false;
-		} else {
+		if (minimumCharacters && containsUppercase && containsLowercase && containsDigit && characterSpecial) {
 			return true;
 		}
+		return false;
 	}
 
 	public boolean register(String emailField, String passwordField) {
-		if (checkUsername(emailField)) {
-			return false;
-		} else {
-			for (Account username : usernameList) {
-				if (emailField.equalsIgnoreCase(username.getUsername())) {
-					if (passwordField.equals(username.getPassword())) {
-						return true;
-					}
+		for (Account username : usernameList) {
+			if (emailField.equalsIgnoreCase(username.getEmail())) {
+				if (passwordField.equals(username.getPassword())) {
+					createUsername(new Account(emailField, passwordField));
+					return true;
 				}
 			}
 		}
