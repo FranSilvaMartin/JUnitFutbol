@@ -1,9 +1,6 @@
 package dao;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import models.Account;
 import models.Team;
 
 public class TeamDAO {
@@ -11,11 +8,37 @@ public class TeamDAO {
 	public ArrayList<Team> teamList = new ArrayList<Team>();
 
 	public void createTeam(Team team) {
-		teamList.add(team);
+		this.teamList.add(team);
 	}
 	
 	public void deleteTeam(Team team) {
 		teamList.remove(team);
 	}
 	
+	public boolean checkTeamName(String teamName) {
+		for (Team team : teamList) {
+			if (team.getName().equals(teamName)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean checkCoachName(String coachName) {
+		for (Team team : teamList) {
+			if (team.getCoach().equals(coachName)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean checkStadiumName(String stadiumName) {
+		for (Team team : teamList) {
+			if (team.getStadium().equals(stadiumName)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

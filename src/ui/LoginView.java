@@ -138,7 +138,7 @@ public class LoginView {
 		String password = new String(passwordField.getPassword());
 		if (futbolApp.getUserDAO().login(username, password)) {
 			frmLogin.dispose();
-			new TeamView(futbolApp);
+			futbolApp.setTeamview(new TeamView(futbolApp));
 		} else {
 			if (futbolApp.getUserDAO().usernameList.isEmpty()) {
 				titleError.setText("Not there accounts registered in the database");

@@ -16,18 +16,19 @@ import models.Team;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.net.URL;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 public class TeamView {
 
-	private JFrame frmTeam;
+	public JFrame frmTeam;
 
 	private FutbolApp futbolApp;
 	private JButton closeButton;
 	private JLabel ImageLabel;
 	private JLabel nameLabel;
 	private BufferedImage img;
-	private int index;
+	private int index = 0;
 	private JLabel stadiumLabel;
 	private JLabel leagueLabel;
 	private JLabel coachLabel;
@@ -48,13 +49,16 @@ public class TeamView {
 	 */
 	public TeamView(FutbolApp futbolApp) {
 		this.futbolApp = futbolApp;
-		futbolApp.addTeams();
-		index = 0;
-
 		initialize();
 		setListeners();
 		frmTeam.setVisible(true);
-		showTeam();
+		frmTeam.invalidate();
+		frmTeam.validate();
+		frmTeam.repaint();
+
+		if (futbolApp.getTeamDAO().teamList.size() > 0) {
+			showTeam();
+		}
 	}
 
 	/**
@@ -127,7 +131,7 @@ public class TeamView {
 		addButton = new JButton("Add Team");
 		addButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frmTeam.dispose();
+				frmTeam.setVisible(false);
 				new AddTeamView(futbolApp);
 			}
 		});
@@ -139,6 +143,7 @@ public class TeamView {
 			public void actionPerformed(ActionEvent e) {
 				Team team = futbolApp.getTeamDAO().teamList.get(index);
 				futbolApp.getTeamDAO().deleteTeam(team);
+				--index;
 				showTeam();
 			}
 		});
@@ -157,11 +162,10 @@ public class TeamView {
 		previousButton = new JButton("Previous");
 		previousButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				index--;
-				if (index < 0) {
-					index = futbolApp.getTeamDAO().teamList.size() - 1;
+				if (index != 0) {
+					--index;
+					showTeam();
 				}
-				showTeam();
 			}
 		});
 		previousButton.setBounds(55, 24, 89, 23);
@@ -170,11 +174,10 @@ public class TeamView {
 		nextButton = new JButton("Next");
 		nextButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				index++;
-				if (index == futbolApp.getTeamDAO().teamList.size()) {
-					index = 0;
+				if (index < futbolApp.getTeamDAO().teamList.size() - 1) {
+					++index;
+					showTeam();
 				}
-				showTeam();
 			}
 		});
 		nextButton.setBounds(289, 24, 89, 23);
@@ -191,11 +194,33 @@ public class TeamView {
 	}
 
 	public void showTeam() {
+
 		Team team = futbolApp.getTeamDAO().teamList.get(index);
 		nameLabel.setText(team.getName());
 		stadiumLabel.setText(team.getStadium());
 		leagueLabel.setText(team.getLeague());
 		coachLabel.setText(team.getCoach());
+
+		if (index == 0) {
+			System.out.println("dasdasda");
+			previousButton.setVisible(false);
+		} else {
+			previousButton.setVisible(true);
+		}
+
+		if (index == futbolApp.getTeamDAO().teamList.size() - 1) {
+			nextButton.setVisible(false);
+		} else {
+			nextButton.setVisible(true);
+		}
+
+		if (futbolApp.getTeamDAO().teamList.size() == 1) {
+			nextButton.setVisible(false);
+			previousButton.setVisible(false);
+		} else {
+			nextButton.setVisible(true);
+			previousButton.setVisible(true);
+		}
 
 		if (team.getPlayerList() != null) {
 			numberPlayersLabel.setText(team.getPlayerList().size() + "");
@@ -204,6 +229,7 @@ public class TeamView {
 		}
 
 		try {
+			ImageLabel.setVisible(true);
 			img = ImageIO.read(new URL(futbolApp.getTeamDAO().teamList.get(index).getImg()));
 			Image image = new ImageIcon(img).getImage().getScaledInstance(300, 300, Image.SCALE_DEFAULT);
 			ImageLabel.setIcon(new ImageIcon(image));

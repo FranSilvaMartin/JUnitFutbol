@@ -9,7 +9,7 @@ public class Team {
 	private String stadium;
 	private String league;
 	private String coach;
-	private List<Player> playerList = new ArrayList<Player>();
+	private List<Player> playerList;
 	private String img;
 
 	public Team(String name, String stadium, String league, String coach, List<Player> playerList, String img) {
@@ -18,7 +18,7 @@ public class Team {
 		this.stadium = stadium;
 		this.league = league;
 		this.coach = coach;
-		this.playerList = playerList;
+		this.playerList = new ArrayList<Player>();
 		this.img = img;
 	}
 
