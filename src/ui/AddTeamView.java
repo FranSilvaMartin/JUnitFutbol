@@ -50,8 +50,6 @@ public class AddTeamView {
 	 */
 	public AddTeamView(FutbolApp futbolApp) {
 		this.futbolApp = futbolApp;
-		futbolApp.addTeams();
-
 		initialize();
 		setListeners();
 		frmAddTeam.setVisible(true);
@@ -133,7 +131,9 @@ public class AddTeamView {
 					JOptionPane.showMessageDialog(frmAddTeam, "Team created");
 					
 					frmAddTeam.dispose();
+					futbolApp.getTeamview().checkButtons();
 					futbolApp.getTeamview().frmTeam.setVisible(true);
+					futbolApp.getTeamview().showTeam();
 				}
 
 				if (existsTeam) {

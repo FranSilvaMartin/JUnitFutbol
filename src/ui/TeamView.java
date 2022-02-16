@@ -5,6 +5,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.Image;
 
@@ -16,8 +18,8 @@ import models.Team;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.net.URL;
-import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
 
 public class TeamView {
 
@@ -38,6 +40,7 @@ public class TeamView {
 	private JLabel coachTitleLabel;
 	private JLabel lblNewLabel;
 	private JLabel nameTitleLabel;
+	private JLabel EmptyTeams;
 	private JButton previousButton;
 	private JButton nextButton;
 	private JButton addButton;
@@ -56,9 +59,8 @@ public class TeamView {
 		frmTeam.validate();
 		frmTeam.repaint();
 
-		if (futbolApp.getTeamDAO().teamList.size() > 0) {
-			showTeam();
-		}
+		index = 0;
+		showTeam();
 	}
 
 	/**
@@ -141,10 +143,20 @@ public class TeamView {
 		deleteButton = new JButton("Delete Team");
 		deleteButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Team team = futbolApp.getTeamDAO().teamList.get(index);
-				futbolApp.getTeamDAO().deleteTeam(team);
-				--index;
-				showTeam();
+
+				int confirmar = JOptionPane.showConfirmDialog(deleteButton, "Estás seguro?");
+				if (confirmar == 0) { // Quiere borrar
+					Team team = futbolApp.getTeamDAO().teamList.get(index);
+					futbolApp.getTeamDAO().deleteTeam(team);
+					
+					if (index == 0) {
+						showTeam();
+					} else {
+						index--;
+						showTeam();
+
+					}
+				}
 			}
 		});
 		deleteButton.setBounds(448, 437, 125, 23);
@@ -161,11 +173,13 @@ public class TeamView {
 
 		previousButton = new JButton("Previous");
 		previousButton.addActionListener(new ActionListener() {
+
 			public void actionPerformed(ActionEvent e) {
-				if (index != 0) {
-					--index;
-					showTeam();
+				index--;
+				if (index < 0) {
+					index = futbolApp.getTeamDAO().teamList.size() - 1;
 				}
+				showTeam();
 			}
 		});
 		previousButton.setBounds(55, 24, 89, 23);
@@ -174,14 +188,21 @@ public class TeamView {
 		nextButton = new JButton("Next");
 		nextButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (index < futbolApp.getTeamDAO().teamList.size() - 1) {
-					++index;
-					showTeam();
+				index++;
+				if (index == futbolApp.getTeamDAO().teamList.size()) {
+					index = 0;
 				}
+				showTeam();
 			}
 		});
 		nextButton.setBounds(289, 24, 89, 23);
 		frmTeam.getContentPane().add(nextButton);
+
+		EmptyTeams = new JLabel("");
+		EmptyTeams.setForeground(Color.RED);
+		EmptyTeams.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		EmptyTeams.setBounds(52, 194, 266, 14);
+		frmTeam.getContentPane().add(EmptyTeams);
 	}
 
 	public void setListeners() {
@@ -194,49 +215,64 @@ public class TeamView {
 	}
 
 	public void showTeam() {
-
-		Team team = futbolApp.getTeamDAO().teamList.get(index);
-		nameLabel.setText(team.getName());
-		stadiumLabel.setText(team.getStadium());
-		leagueLabel.setText(team.getLeague());
-		coachLabel.setText(team.getCoach());
-
-		if (index == 0) {
-			System.out.println("dasdasda");
-			previousButton.setVisible(false);
+		if (futbolApp.getTeamDAO().teamList.isEmpty()) {
+			showTeamEmpty();
 		} else {
-			previousButton.setVisible(true);
-		}
+			Team team = futbolApp.getTeamDAO().teamList.get(index);
+			nameLabel.setText(team.getName());
+			stadiumLabel.setText(team.getStadium());
+			leagueLabel.setText(team.getLeague());
+			coachLabel.setText(team.getCoach());
+			EmptyTeams.setText("");
+			
+			checkButtons();
 
-		if (index == futbolApp.getTeamDAO().teamList.size() - 1) {
+			if (team.getPlayerList() != null) {
+				numberPlayersLabel.setText(team.getPlayerList().size() + "");
+			} else {
+				numberPlayersLabel.setText("0");
+			}
+
+			try {
+				ImageLabel.setVisible(true);
+				img = ImageIO.read(new URL(futbolApp.getTeamDAO().teamList.get(index).getImg()));
+				Image image = new ImageIcon(img).getImage().getScaledInstance(300, 300, Image.SCALE_DEFAULT);
+				ImageLabel.setIcon(new ImageIcon(image));
+			} catch (Exception e2) {
+				ImageLabel.setVisible(false);
+			}
+		}
+	}
+
+	public void showTeamEmpty() {
+		nameLabel.setText("");
+		stadiumLabel.setText("");
+		leagueLabel.setText("");
+		coachLabel.setText("");
+
+		checkButtons();
+
+		EmptyTeams.setText("VACIO");
+		numberPlayersLabel.setText("0");
+		ImageLabel.setVisible(false);
+	}
+
+	public boolean checkButtons() {
+
+		if (futbolApp.getTeamDAO().teamList.isEmpty()) {
 			nextButton.setVisible(false);
-		} else {
-			nextButton.setVisible(true);
-		}
-
-		if (futbolApp.getTeamDAO().teamList.size() == 1) {
-			nextButton.setVisible(false);
 			previousButton.setVisible(false);
+			return false;
 		} else {
-			nextButton.setVisible(true);
-			previousButton.setVisible(true);
+			if (futbolApp.getTeamDAO().teamList.size() == 1) {
+				nextButton.setVisible(false);
+				previousButton.setVisible(false);
+				return false;
+			} else {
+				nextButton.setVisible(true);
+				previousButton.setVisible(true);
+				return true;
+			}
 		}
-
-		if (team.getPlayerList() != null) {
-			numberPlayersLabel.setText(team.getPlayerList().size() + "");
-		} else {
-			numberPlayersLabel.setText("0");
-		}
-
-		try {
-			ImageLabel.setVisible(true);
-			img = ImageIO.read(new URL(futbolApp.getTeamDAO().teamList.get(index).getImg()));
-			Image image = new ImageIcon(img).getImage().getScaledInstance(300, 300, Image.SCALE_DEFAULT);
-			ImageLabel.setIcon(new ImageIcon(image));
-		} catch (Exception e2) {
-			ImageLabel.setVisible(false);
-			// lblTituloError.setText("ERROR: No existe una imagen");
-		}
-
 	}
 }

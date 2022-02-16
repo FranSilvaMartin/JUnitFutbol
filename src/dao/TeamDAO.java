@@ -8,7 +8,7 @@ public class TeamDAO {
 	public ArrayList<Team> teamList = new ArrayList<Team>();
 
 	public void createTeam(Team team) {
-		this.teamList.add(team);
+		teamList.add(team);
 	}
 	
 	public void deleteTeam(Team team) {
