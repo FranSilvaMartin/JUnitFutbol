@@ -119,21 +119,24 @@ public class AddTeamView {
 
 				TeamDAO teamdao = futbolApp.getTeamDAO();
 
+				boolean emptyFields = nameLabel.getText().isEmpty() || imageTextLabel.getText().isEmpty()
+						|| stadiumLabel.getText().isEmpty() || leagueLabel.getText().isEmpty()
+						|| coachLabel.getText().isEmpty();
 				boolean existsTeam = teamdao.checkTeamName(nameLabel.getText());
 				boolean existsCoach = teamdao.checkTeamName(coachLabel.getText());
 				boolean existsStadium = teamdao.checkStadiumName(stadiumLabel.getText());
 
-				if (!existsTeam && !existsCoach && !existsStadium) {
+				if (!existsTeam && !existsCoach && !existsStadium && !emptyFields) {
 					ArrayList<Player> playerList = new ArrayList<Player>();
-					futbolApp.getTeamDAO().teamList.add(new Team(nameLabel.getText(), stadiumLabel.getText(), leagueLabel.getText(),
-							coachLabel.getText(), playerList, imageTextLabel.getText()));
-					
+					futbolApp.getTeamDAO().teamList.add(new Team(nameLabel.getText(), stadiumLabel.getText(),
+							leagueLabel.getText(), coachLabel.getText(), playerList, imageTextLabel.getText()));
+
 					JOptionPane.showMessageDialog(frmAddTeam, "Team created");
-					
+
 					frmAddTeam.dispose();
 					futbolApp.getTeamview().checkButtons();
-					futbolApp.getTeamview().frmTeam.setVisible(true);
 					futbolApp.getTeamview().showTeam();
+					futbolApp.getTeamview().frmTeam.setVisible(true);
 				}
 
 				if (existsTeam) {
@@ -146,6 +149,10 @@ public class AddTeamView {
 
 				if (existsStadium) {
 					JOptionPane.showMessageDialog(frmAddTeam, "Already exists this name stadium");
+				}
+				
+				if (emptyFields) {
+					JOptionPane.showMessageDialog(frmAddTeam, "Empty fields");
 				}
 			}
 		});

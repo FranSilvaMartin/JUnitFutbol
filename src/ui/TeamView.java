@@ -46,6 +46,7 @@ public class TeamView {
 	private JButton addButton;
 	private JButton deleteButton;
 	private JButton showPlayerButton;
+	private JLabel ImageErrorTitleLabel;
 
 	/**
 	 * Create the application.
@@ -199,10 +200,18 @@ public class TeamView {
 		frmTeam.getContentPane().add(nextButton);
 
 		EmptyTeams = new JLabel("");
+		EmptyTeams.setHorizontalAlignment(SwingConstants.CENTER);
 		EmptyTeams.setForeground(Color.RED);
 		EmptyTeams.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		EmptyTeams.setBounds(52, 194, 266, 14);
 		frmTeam.getContentPane().add(EmptyTeams);
+		
+		ImageErrorTitleLabel = new JLabel("");
+		ImageErrorTitleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		ImageErrorTitleLabel.setForeground(Color.RED);
+		ImageErrorTitleLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		ImageErrorTitleLabel.setBounds(75, 239, 266, 14);
+		frmTeam.getContentPane().add(ImageErrorTitleLabel);
 	}
 
 	public void setListeners() {
@@ -224,6 +233,7 @@ public class TeamView {
 			leagueLabel.setText(team.getLeague());
 			coachLabel.setText(team.getCoach());
 			EmptyTeams.setText("");
+			ImageErrorTitleLabel.setText("");
 			
 			checkButtons();
 
@@ -240,6 +250,7 @@ public class TeamView {
 				ImageLabel.setIcon(new ImageIcon(image));
 			} catch (Exception e2) {
 				ImageLabel.setVisible(false);
+				ImageErrorTitleLabel.setText("Image not found");
 			}
 		}
 	}
