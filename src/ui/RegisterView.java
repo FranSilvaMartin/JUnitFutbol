@@ -101,7 +101,7 @@ public class RegisterView extends UserDAO {
 		passwordField2.setColumns(10);
 		passwordField2.setBounds(163, 214, 195, 23);
 		frmRegister.getContentPane().add(passwordField2);
-		
+
 		titleError = new JTextArea();
 		titleError.setForeground(Color.RED);
 		titleError.setBounds(163, 295, 195, 96);
@@ -109,7 +109,7 @@ public class RegisterView extends UserDAO {
 		titleError.setLineWrap(true);
 		titleError.setBackground(null);
 		frmRegister.getContentPane().add(titleError);
-		
+
 	}
 
 	public void setListeners() {
@@ -122,7 +122,7 @@ public class RegisterView extends UserDAO {
 				registerAccount(email, password, password2);
 			}
 		});
-		
+
 		closeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frmRegister.dispose();
@@ -183,11 +183,13 @@ public class RegisterView extends UserDAO {
 			}
 
 			if (!requirementsEmail) {
-				titleError.setText("Successfully registered");
+				titleError
+						.setText("Requierements Email\n 1. constains @\n 2. constains(.com, .es, .net)\n 3. No exists");
 			} else if (!samePassword) {
 				titleError.setText("Same Password");
 			} else if (!requirementsPassword) {
-				titleError.setText("Requirements Password\n 1. min 8 characters\n 2. constains Uppercase\n 3. constains Lowercase\n 4. constains Digit\n 5. constains Characters specials");
+				titleError.setText(
+						"Requirements Password\n 1. min 8 characters\n 2. constains Uppercase\n 3. constains Lowercase\n 4. constains Digit\n 5. constains Characters specials");
 			}
 		} else {
 			System.out.println("Campos vacios");

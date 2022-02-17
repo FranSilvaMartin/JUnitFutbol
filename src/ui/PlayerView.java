@@ -13,6 +13,7 @@ import java.awt.Image;
 import javax.swing.SwingConstants;
 
 import mainApp.FutbolApp;
+import models.Player;
 import models.Team;
 
 import java.awt.event.ActionListener;
@@ -21,7 +22,7 @@ import java.net.URL;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 
-public class TeamView {
+public class PlayerView {
 
 	public JFrame frmTeam;
 
@@ -30,29 +31,32 @@ public class TeamView {
 	private JLabel ImageLabel;
 	private JLabel nameLabel;
 	private BufferedImage img;
-	public int index = 0;
-	private JLabel stadiumLabel;
-	private JLabel leagueLabel;
-	private JLabel coachLabel;
-	private JLabel numberPlayersLabel;
-	private JLabel leagueTitleLabel;
-	private JLabel stadiumTitleLabel;
-	private JLabel coachTitleLabel;
-	private JLabel lblNewLabel;
+	private int index = 0;
+	public int indexTeam = 0;
+	private JLabel countryLabel;
+	private JLabel yearsLabel;
+	private JLabel heightLabel;
+	private JLabel yearsTitleLabel;
+	private JLabel countryTitleLabel;
+	private JLabel heightTitleLabel;
 	private JLabel nameTitleLabel;
+	private JLabel weightTitleLabel;
+	private JLabel weightLabel;
 	private JLabel EmptyTeams;
 	private JButton previousButton;
 	private JButton nextButton;
 	private JButton addButton;
 	private JButton deleteButton;
-	private JButton showPlayerButton;
 	private JLabel ImageErrorTitleLabel;
+	private JLabel teamTitleLabel;
+	private JLabel teamLabel;
 
 	/**
 	 * Create the application.
 	 */
-	public TeamView(FutbolApp futbolApp) {
+	public PlayerView(FutbolApp futbolApp) {
 		this.futbolApp = futbolApp;
+		indexTeam = futbolApp.getTeamview().index;
 		initialize();
 		setListeners();
 		frmTeam.setVisible(true);
@@ -60,8 +64,7 @@ public class TeamView {
 		frmTeam.validate();
 		frmTeam.repaint();
 
-		index = 0;
-		showTeam();
+		showPlayer();
 	}
 
 	/**
@@ -71,7 +74,7 @@ public class TeamView {
 
 		frmTeam = new JFrame();
 		frmTeam.setTitle("Futbol");
-		frmTeam.setBounds(100, 100, 664, 510);
+		frmTeam.setBounds(100, 100, 664, 522);
 		frmTeam.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmTeam.getContentPane().setLayout(null);
 
@@ -82,7 +85,7 @@ public class TeamView {
 		frmTeam.getContentPane().add(nameLabel);
 
 		closeButton = new JButton("");
-		closeButton.setIcon(new ImageIcon(TeamView.class.getResource("/resources/closeButtonIMG.png")));
+		closeButton.setIcon(new ImageIcon(PlayerView.class.getResource("/resources/closeButtonIMG.png")));
 		closeButton.setBounds(579, 11, 52, 27);
 		closeButton.setBorderPainted(false);
 		closeButton.setContentAreaFilled(false);
@@ -95,53 +98,40 @@ public class TeamView {
 		ImageLabel.setBounds(52, 77, 326, 358);
 		frmTeam.getContentPane().add(ImageLabel);
 
-		stadiumLabel = new JLabel("");
-		stadiumLabel.setBounds(438, 204, 187, 23);
-		frmTeam.getContentPane().add(stadiumLabel);
+		countryLabel = new JLabel("");
+		countryLabel.setBounds(438, 204, 187, 23);
+		frmTeam.getContentPane().add(countryLabel);
 
-		leagueLabel = new JLabel("");
-		leagueLabel.setBounds(438, 154, 146, 14);
-		frmTeam.getContentPane().add(leagueLabel);
+		yearsLabel = new JLabel("");
+		yearsLabel.setBounds(438, 154, 146, 14);
+		frmTeam.getContentPane().add(yearsLabel);
 
-		coachLabel = new JLabel("");
-		coachLabel.setBounds(438, 263, 146, 14);
-		frmTeam.getContentPane().add(coachLabel);
+		heightLabel = new JLabel("");
+		heightLabel.setBounds(438, 263, 146, 14);
+		frmTeam.getContentPane().add(heightLabel);
 
-		numberPlayersLabel = new JLabel("");
-		numberPlayersLabel.setBounds(438, 313, 46, 14);
-		frmTeam.getContentPane().add(numberPlayersLabel);
+		yearsTitleLabel = new JLabel("Years");
+		yearsTitleLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
+		yearsTitleLabel.setBounds(428, 129, 68, 14);
+		frmTeam.getContentPane().add(yearsTitleLabel);
 
-		leagueTitleLabel = new JLabel("League");
-		leagueTitleLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
-		leagueTitleLabel.setBounds(428, 129, 68, 14);
-		frmTeam.getContentPane().add(leagueTitleLabel);
+		countryTitleLabel = new JLabel("Country");
+		countryTitleLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
+		countryTitleLabel.setBounds(430, 179, 99, 14);
+		frmTeam.getContentPane().add(countryTitleLabel);
 
-		stadiumTitleLabel = new JLabel("Stadium");
-		stadiumTitleLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
-		stadiumTitleLabel.setBounds(430, 179, 99, 14);
-		frmTeam.getContentPane().add(stadiumTitleLabel);
+		heightTitleLabel = new JLabel("Height");
+		heightTitleLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
+		heightTitleLabel.setBounds(428, 238, 46, 14);
+		frmTeam.getContentPane().add(heightTitleLabel);
 
-		coachTitleLabel = new JLabel("Coach");
-		coachTitleLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
-		coachTitleLabel.setBounds(428, 238, 46, 14);
-		frmTeam.getContentPane().add(coachTitleLabel);
-
-		lblNewLabel = new JLabel("Number of players");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel.setBounds(428, 288, 117, 14);
-		frmTeam.getContentPane().add(lblNewLabel);
-
-		addButton = new JButton("Add Team");
-		addButton.setBounds(448, 412, 125, 23);
+		addButton = new JButton("Add Player");
+		addButton.setBounds(448, 426, 125, 23);
 		frmTeam.getContentPane().add(addButton);
 
-		deleteButton = new JButton("Delete Team");
-		deleteButton.setBounds(448, 437, 125, 23);
+		deleteButton = new JButton("Delete Player");
+		deleteButton.setBounds(448, 449, 125, 23);
 		frmTeam.getContentPane().add(deleteButton);
-
-		showPlayerButton = new JButton("Show players");
-		showPlayerButton.setBounds(448, 378, 125, 23);
-		frmTeam.getContentPane().add(showPlayerButton);
 
 		nameTitleLabel = new JLabel("Name");
 		nameTitleLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -169,21 +159,32 @@ public class TeamView {
 		ImageErrorTitleLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		ImageErrorTitleLabel.setBounds(75, 239, 266, 14);
 		frmTeam.getContentPane().add(ImageErrorTitleLabel);
+
+		weightTitleLabel = new JLabel("Weight");
+		weightTitleLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
+		weightTitleLabel.setBounds(428, 295, 46, 14);
+		frmTeam.getContentPane().add(weightTitleLabel);
+
+		weightLabel = new JLabel("");
+		weightLabel.setBounds(438, 322, 146, 14);
+		frmTeam.getContentPane().add(weightLabel);
+
+		teamTitleLabel = new JLabel("Team");
+		teamTitleLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
+		teamTitleLabel.setBounds(428, 349, 46, 14);
+		frmTeam.getContentPane().add(teamTitleLabel);
+
+		teamLabel = new JLabel("");
+		teamLabel.setBounds(438, 376, 146, 14);
+		frmTeam.getContentPane().add(teamLabel);
 	}
 
 	public void setListeners() {
 
-		showPlayerButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				frmTeam.setVisible(false);
-				new PlayerView(futbolApp);
-			}
-		});
-		
 		addButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frmTeam.setVisible(false);
-				new AddTeamView(futbolApp);
+				new AddPlayerView(futbolApp);
 			}
 		});
 
@@ -192,14 +193,17 @@ public class TeamView {
 
 				int confirmar = JOptionPane.showConfirmDialog(deleteButton, "You are sure?");
 				if (confirmar == 0) {
-					Team team = futbolApp.getTeamDAO().teamList.get(index);
-					futbolApp.getTeamDAO().deleteTeam(team);
+
+					Team team = futbolApp.getTeamDAO().teamList.get(indexTeam);
+					Player player = team.getPlayerList().get(index);
+
+					futbolApp.getTeamDAO().deletePlayer(team, player);
 
 					if (index == 0) {
-						showTeam();
+						showPlayer();
 					} else {
 						index--;
-						showTeam();
+						showPlayer();
 
 					}
 				}
@@ -211,54 +215,51 @@ public class TeamView {
 			public void actionPerformed(ActionEvent e) {
 				index--;
 				if (index < 0) {
-					index = futbolApp.getTeamDAO().teamList.size() - 1;
+					index = futbolApp.getTeamDAO().teamList.get(indexTeam).getPlayerList().size() - 1;
 				}
-				showTeam();
+				showPlayer();
 			}
 		});
 
 		nextButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				index++;
-				if (index == futbolApp.getTeamDAO().teamList.size()) {
+				if (index == futbolApp.getTeamDAO().teamList.get(indexTeam).getPlayerList().size()) {
 					index = 0;
 				}
-				showTeam();
+				showPlayer();
 			}
 		});
 
 		closeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frmTeam.dispose();
-				new LoginView(futbolApp);
+				futbolApp.getTeamview().frmTeam.setVisible(true);
 			}
 		});
 	}
 
-	public void showTeam() {
-		if (futbolApp.getTeamDAO().teamList.isEmpty()) {
+	public void showPlayer() {
+
+		if (futbolApp.getTeamDAO().teamList.get(indexTeam).getPlayerList().isEmpty()) {
 			showTeamEmpty();
 		} else {
-			Team team = futbolApp.getTeamDAO().teamList.get(index);
-			nameLabel.setText(team.getName());
-			stadiumLabel.setText(team.getStadium());
-			leagueLabel.setText(team.getLeague());
-			coachLabel.setText(team.getCoach());
+			Team team = futbolApp.getTeamDAO().teamList.get(indexTeam);
+			nameLabel.setText(team.getPlayerList().get(index).getName());
+			countryLabel.setText(team.getPlayerList().get(index).getCountry());
+			yearsLabel.setText(team.getPlayerList().get(index).getYears() + "");
+			heightLabel.setText(team.getPlayerList().get(index).getHeight() + " cm");
+			weightLabel.setText(team.getPlayerList().get(index).getWeight() + " kg");
+			teamLabel.setText(team.getName());
 			EmptyTeams.setText("");
 			ImageErrorTitleLabel.setText("");
 
 			checkButtons();
 
-			if (team.getPlayerList() != null) {
-				numberPlayersLabel.setText(team.getPlayerList().size() + "");
-			} else {
-				numberPlayersLabel.setText("0");
-			}
-
 			try {
 				ImageLabel.setVisible(true);
-				img = ImageIO.read(new URL(futbolApp.getTeamDAO().teamList.get(index).getImg()));
-				Image image = new ImageIcon(img).getImage().getScaledInstance(300, 300, Image.SCALE_DEFAULT);
+				img = ImageIO.read(new URL(team.getPlayerList().get(index).getImg()));
+				Image image = new ImageIcon(img).getImage().getScaledInstance(250, 300, Image.SCALE_DEFAULT);
 				ImageLabel.setIcon(new ImageIcon(image));
 			} catch (Exception e2) {
 				ImageLabel.setVisible(false);
@@ -269,26 +270,27 @@ public class TeamView {
 
 	public void showTeamEmpty() {
 		nameLabel.setText("");
-		stadiumLabel.setText("");
-		leagueLabel.setText("");
-		coachLabel.setText("");
+		countryLabel.setText("");
+		yearsLabel.setText("");
+		heightLabel.setText("");
+		weightLabel.setText("");
+		teamLabel.setText("");
 
 		checkButtons();
 
 		EmptyTeams.setText("Empty");
-		numberPlayersLabel.setText("0");
 		ImageLabel.setVisible(false);
 	}
 
 	public boolean checkButtons() {
 
-		if (futbolApp.getTeamDAO().teamList.isEmpty()) {
+		if (futbolApp.getTeamDAO().teamList.get(indexTeam).getPlayerList().isEmpty()) {
 			nextButton.setVisible(false);
 			previousButton.setVisible(false);
 			deleteButton.setVisible(false);
 			return false;
 		} else {
-			if (futbolApp.getTeamDAO().teamList.size() == 1) {
+			if (futbolApp.getTeamDAO().teamList.get(indexTeam).getPlayerList().size() == 1) {
 				nextButton.setVisible(false);
 				previousButton.setVisible(false);
 				deleteButton.setVisible(true);

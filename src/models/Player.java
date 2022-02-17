@@ -3,32 +3,44 @@ package models;
 public class Player {
 
 	private String name;
-	private String years;
+	private int years;
+	private int weight;
+	private int height;
 	private String country;
-	private Team team;
+	private String img;
 
-	public Player(String name, String years, String country, Team team) {
+	public Player(String name, int years, int weight, int height, String country, String img) {
 		super();
 		this.name = name;
 		this.years = years;
+		this.weight = weight;
+		this.height = height;
 		this.country = country;
-		this.team = team;
+		this.img = img;
+	}
+
+	public int getWeight() {
+		return weight;
+	}
+
+	public int getHeight() {
+		return height;
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public String getYears() {
+	public int getYears() {
 		return years;
 	}
 
+	public String getImg() {
+		return img;
+	}
+	
 	public String getCountry() {
 		return country;
-	}
-
-	public Team getTeam() {
-		return team;
 	}
 
 }
