@@ -19,17 +19,19 @@ import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
 import java.awt.Color;
 import javax.swing.ImageIcon;
+import javax.swing.JTextArea;
 
 public class RegisterView extends UserDAO {
 
 	private JFrame frmRegister;
 
 	private JButton registerButton, closeButton;
-	private JLabel titleLabel, titleError, titleEmail, titlePassword;
+	private JLabel titleLabel, titleEmail, titlePassword;
 	private JTextField emailField;
 	private JPasswordField passwordField;
 	private JPasswordField passwordField2;
 	private FutbolApp futbolApp;
+	private JTextArea titleError;
 
 	/**
 	 * Create the application.
@@ -47,7 +49,7 @@ public class RegisterView extends UserDAO {
 	private void initialize() {
 		frmRegister = new JFrame();
 		frmRegister.setTitle("Futbol");
-		frmRegister.setBounds(100, 100, 538, 380);
+		frmRegister.setBounds(100, 100, 538, 441);
 		frmRegister.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmRegister.getContentPane().setLayout(null);
 
@@ -80,13 +82,6 @@ public class RegisterView extends UserDAO {
 		titleLabel.setBounds(124, 11, 269, 23);
 		frmRegister.getContentPane().add(titleLabel);
 
-		titleError = new JLabel("");
-		titleError.setForeground(Color.RED);
-		titleError.setHorizontalAlignment(SwingConstants.LEFT);
-		titleError.setFont(new Font("Sylfaen", Font.PLAIN, 15));
-		titleError.setBounds(150, 292, 327, 23);
-		frmRegister.getContentPane().add(titleError);
-
 		titleEmail = new JLabel("Email");
 		titleEmail.setFont(new Font("Tahoma", Font.BOLD, 14));
 		titleEmail.setBounds(150, 71, 63, 14);
@@ -106,15 +101,28 @@ public class RegisterView extends UserDAO {
 		passwordField2.setColumns(10);
 		passwordField2.setBounds(163, 214, 195, 23);
 		frmRegister.getContentPane().add(passwordField2);
-
-		emailField.setText("rans.crater@gmail.com");
-		passwordField.setText("HolaeeeeaaQueTal#-123");
-		passwordField2.setText("HolaeeeeaaQueTal#-123");
+		
+		titleError = new JTextArea();
+		titleError.setForeground(Color.RED);
+		titleError.setBounds(163, 295, 195, 96);
+		titleError.setEditable(false);
+		titleError.setLineWrap(true);
+		titleError.setBackground(null);
+		frmRegister.getContentPane().add(titleError);
 		
 	}
 
 	public void setListeners() {
 
+		registerButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String email = emailField.getText();
+				String password = new String(passwordField.getPassword());
+				String password2 = new String(passwordField2.getPassword());
+				registerAccount(email, password, password2);
+			}
+		});
+		
 		closeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frmRegister.dispose();
@@ -171,7 +179,6 @@ public class RegisterView extends UserDAO {
 		if (!emptyFields) {
 			if (requirementsEmail && requirementsPassword && samePassword) {
 				futbolApp.getUserDAO().createUsername(new Account(email, password));
-				futbolApp.getUserDAO().showUsersConsole();
 				titleError.setText("Successfully registered");
 			}
 
@@ -180,7 +187,7 @@ public class RegisterView extends UserDAO {
 			} else if (!samePassword) {
 				titleError.setText("Same Password");
 			} else if (!requirementsPassword) {
-				titleError.setText("Requirements Password");
+				titleError.setText("Requirements Password\n 1. min 8 characters\n 2. constains Uppercase\n 3. constains Lowercase\n 4. constains Digit\n 5. constains Characters specials");
 			}
 		} else {
 			System.out.println("Campos vacios");

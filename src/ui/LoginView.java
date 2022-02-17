@@ -8,7 +8,6 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 
 import mainApp.FutbolApp;
-import models.Account;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.ActionListener;
@@ -31,8 +30,6 @@ public class LoginView {
 	 */
 	public LoginView(FutbolApp futbolApp) {
 		this.futbolApp = futbolApp;
-		futbolApp.getUserDAO().createUsername(new Account("Fran", "1234"));
-		futbolApp.getUserDAO().showUsersConsole();
 		initialize();
 		setListeners();
 		frmLogin.setVisible(true);
