@@ -21,10 +21,6 @@ public class FutbolApp {
 	private TeamView teamview;
 	private PlayerView playerview;
 
-	public void setTeamview(TeamView teamview) {
-		this.teamview = teamview;
-	}
-
 	public FutbolApp() {
 		this.userDAO = new UserDAO();
 		this.playerDAO = new PlayerDAO();
@@ -39,11 +35,15 @@ public class FutbolApp {
 		return playerDAO;
 	}
 
-	public TeamView getTeamview() {
+	public TeamView getTeamView() {
 		return teamview;
 	}
 	
-	public PlayerView getPlayerview() {
+	public void setTeamView(TeamView teamview) {
+		this.teamview = teamview;
+	}
+	
+	public PlayerView getPlayerView() {
 		return playerview;
 	}
 
@@ -69,6 +69,7 @@ public class FutbolApp {
 	
 	public void addAccounts() {
 		getUserDAO().createUsername(new Account("fran", "1234"));
+		getUserDAO().createUsername(new Account("fran@gmail.com", "JUnitFutbol1234-"));
 		getUserDAO().createUsername(new Account("mohamed@gmail.com", "JUnitFutbol1234-"));
 	}
 }

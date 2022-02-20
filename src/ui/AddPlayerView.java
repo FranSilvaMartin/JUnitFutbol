@@ -209,7 +209,7 @@ public class AddPlayerView {
 	private void addPlayer() {
 
 		try {
-			int indexTeam = futbolApp.getTeamview().index;
+			int indexTeam = futbolApp.getTeamView().index;
 			PlayerDAO playerdao = futbolApp.getPlayerDAO();
 			TeamDAO teamdao = futbolApp.getTeamDAO();
 			Team team = futbolApp.getTeamDAO().teamList.get(indexTeam);

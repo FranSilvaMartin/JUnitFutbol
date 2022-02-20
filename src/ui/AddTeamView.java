@@ -149,7 +149,7 @@ public class AddTeamView {
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frmAddTeam.dispose();
-				futbolApp.getTeamview().frmTeam.setVisible(true);
+				futbolApp.getTeamView().frmTeam.setVisible(true);
 			}
 		});
 
@@ -204,9 +204,9 @@ public class AddTeamView {
 				JOptionPane.showMessageDialog(frmAddTeam, "Team created");
 
 				frmAddTeam.dispose();
-				futbolApp.getTeamview().checkButtons();
-				futbolApp.getTeamview().showTeam();
-				futbolApp.getTeamview().frmTeam.setVisible(true);
+				futbolApp.getTeamView().checkButtons();
+				futbolApp.getTeamView().showTeam();
+				futbolApp.getTeamView().frmTeam.setVisible(true);
 			}
 
 			if (existsTeam) {

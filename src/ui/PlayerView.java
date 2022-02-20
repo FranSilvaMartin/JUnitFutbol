@@ -58,7 +58,7 @@ public class PlayerView {
 	 */
 	public PlayerView(FutbolApp futbolApp) {
 		this.futbolApp = futbolApp;
-		indexTeam = futbolApp.getTeamview().index;
+		indexTeam = futbolApp.getTeamView().index;
 		initialize();
 		setListeners();
 		frmTeam.setVisible(true);
@@ -244,7 +244,7 @@ public class PlayerView {
 		closeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frmTeam.dispose();
-				futbolApp.getTeamview().frmTeam.setVisible(true);
+				futbolApp.getTeamView().frmTeam.setVisible(true);
 			}
 		});
 	}
