@@ -70,6 +70,7 @@ public class TeamView {
 	private void initialize() {
 
 		frmTeam = new JFrame();
+		frmTeam.setResizable(false);
 		frmTeam.setTitle("Futbol");
 		frmTeam.setBounds(100, 100, 664, 510);
 		frmTeam.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -132,15 +133,15 @@ public class TeamView {
 		frmTeam.getContentPane().add(lblNewLabel);
 
 		addButton = new JButton("Add Team");
-		addButton.setBounds(448, 412, 125, 23);
+		addButton.setBounds(488, 412, 125, 23);
 		frmTeam.getContentPane().add(addButton);
 
 		deleteButton = new JButton("Delete Team");
-		deleteButton.setBounds(448, 437, 125, 23);
+		deleteButton.setBounds(488, 437, 125, 23);
 		frmTeam.getContentPane().add(deleteButton);
 
-		showPlayerButton = new JButton("Show players");
-		showPlayerButton.setBounds(448, 378, 125, 23);
+		showPlayerButton = new JButton("Players");
+		showPlayerButton.setBounds(488, 381, 125, 23);
 		frmTeam.getContentPane().add(showPlayerButton);
 
 		nameTitleLabel = new JLabel("Name");
@@ -190,7 +191,7 @@ public class TeamView {
 		deleteButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				int confirmar = JOptionPane.showConfirmDialog(deleteButton, "You are sure?");
+				int confirmar = JOptionPane.showConfirmDialog(deleteButton, "Are you sure?");
 				if (confirmar == 0) {
 					Team team = futbolApp.getTeamDAO().teamList.get(index);
 					futbolApp.getTeamDAO().deleteTeam(team);
@@ -200,7 +201,6 @@ public class TeamView {
 					} else {
 						index--;
 						showTeam();
-
 					}
 				}
 			}

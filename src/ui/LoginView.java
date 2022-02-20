@@ -40,6 +40,7 @@ public class LoginView {
 	 */
 	private void initialize() {
 		frmLogin = new JFrame();
+		frmLogin.setResizable(false);
 		frmLogin.setTitle("Futbol");
 		frmLogin.setBounds(100, 100, 538, 380);
 		frmLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -111,14 +112,14 @@ public class LoginView {
 					usernameField.requestFocus();
 				}
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-					loginButtonAction();
+					loginAccount();
 				}
 			}
 		});
 
 		loginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				loginButtonAction();
+				loginAccount();
 			}
 		});
 
@@ -130,7 +131,7 @@ public class LoginView {
 		});
 	}
 	
-	public void loginButtonAction() {
+	public void loginAccount() {
 		String username = usernameField.getText();
 		String password = new String(passwordField.getPassword());
 		if (futbolApp.getUserDAO().login(username, password)) {

@@ -2,7 +2,6 @@ package dao;
 
 import java.util.ArrayList;
 
-import models.Player;
 import models.Team;
 
 public class TeamDAO {
@@ -15,10 +14,6 @@ public class TeamDAO {
 	
 	public void deleteTeam(Team team) {
 		teamList.remove(team);
-	}
-	
-	public void deletePlayer(Team team, Player player) {
-		team.getPlayerList().remove(player);
 	}
 	
 	public boolean checkTeamName(String teamName) {

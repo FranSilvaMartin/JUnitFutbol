@@ -73,7 +73,8 @@ public class PlayerView {
 	private void initialize() {
 
 		frmTeam = new JFrame();
-		frmTeam.setTitle("Futbol");
+		frmTeam.setResizable(false);
+		frmTeam.setTitle("Futbol - Player View");
 		frmTeam.setBounds(100, 100, 664, 522);
 		frmTeam.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmTeam.getContentPane().setLayout(null);
@@ -126,7 +127,7 @@ public class PlayerView {
 		frmTeam.getContentPane().add(heightTitleLabel);
 
 		addButton = new JButton("Add Player");
-		addButton.setBounds(448, 426, 125, 23);
+		addButton.setBounds(448, 419, 125, 23);
 		frmTeam.getContentPane().add(addButton);
 
 		deleteButton = new JButton("Delete Player");
@@ -191,20 +192,18 @@ public class PlayerView {
 		deleteButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				int confirmar = JOptionPane.showConfirmDialog(deleteButton, "You are sure?");
+				int confirmar = JOptionPane.showConfirmDialog(deleteButton, "Are you sure?");
 				if (confirmar == 0) {
 
 					Team team = futbolApp.getTeamDAO().teamList.get(indexTeam);
 					Player player = team.getPlayerList().get(index);
-
-					futbolApp.getTeamDAO().deletePlayer(team, player);
+					futbolApp.getPlayerDAO().deletePlayer(team, player);
 
 					if (index == 0) {
 						showPlayer();
 					} else {
 						index--;
 						showPlayer();
-
 					}
 				}
 			}

@@ -12,7 +12,7 @@ import java.awt.Image;
 
 import javax.swing.SwingConstants;
 
-import dao.TeamDAO;
+import dao.PlayerDAO;
 import mainApp.FutbolApp;
 import models.Player;
 import models.Team;
@@ -20,7 +20,6 @@ import models.Team;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.net.URL;
-import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import java.awt.Color;
@@ -34,19 +33,19 @@ public class AddPlayerView {
 	private JButton showImageButton;
 	private JLabel ImageLabel;
 	private JTextField nameLabel;
-	private JTextField stadiumLabel;
-	private JTextField leagueLabel;
+	private JTextField weightLabel;
+	private JTextField yearsLabel;
 	private JLabel errorImageTitleLabel;
-	private JTextField coachLabel;
+	private JTextField heightLabel;
 	private JLabel leagueTitleLabel;
 	private JLabel stadiumTitleLabel;
 	private JLabel coachTitleLabel;
 	private JLabel nameTitleLabel;
 	private JButton addButton;
-	private JButton deleteButton;
+	private JButton cancelButton;
 	private JTextField imageTextLabel;
 	private JLabel lblCountry;
-	private JTextField textField;
+	private JTextField countryLabel;
 
 	/**
 	 * Create the application.
@@ -64,6 +63,7 @@ public class AddPlayerView {
 	private void initialize() {
 
 		frmAddPlayer = new JFrame();
+		frmAddPlayer.setResizable(false);
 		frmAddPlayer.setTitle("Futbol - Add Player");
 		frmAddPlayer.setBounds(100, 100, 664, 510);
 		frmAddPlayer.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -89,17 +89,17 @@ public class AddPlayerView {
 		ImageLabel.setBounds(52, 42, 326, 358);
 		frmAddPlayer.getContentPane().add(ImageLabel);
 
-		stadiumLabel = new JTextField("");
-		stadiumLabel.setBounds(438, 191, 46, 23);
-		frmAddPlayer.getContentPane().add(stadiumLabel);
+		weightLabel = new JTextField("");
+		weightLabel.setBounds(438, 191, 46, 23);
+		frmAddPlayer.getContentPane().add(weightLabel);
 
-		leagueLabel = new JTextField("");
-		leagueLabel.setBounds(438, 129, 46, 23);
-		frmAddPlayer.getContentPane().add(leagueLabel);
+		yearsLabel = new JTextField("");
+		yearsLabel.setBounds(438, 129, 46, 23);
+		frmAddPlayer.getContentPane().add(yearsLabel);
 
-		coachLabel = new JTextField("");
-		coachLabel.setBounds(438, 250, 46, 23);
-		frmAddPlayer.getContentPane().add(coachLabel);
+		heightLabel = new JTextField("");
+		heightLabel.setBounds(438, 250, 46, 23);
+		frmAddPlayer.getContentPane().add(heightLabel);
 
 		leagueTitleLabel = new JLabel("Years");
 		leagueTitleLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -117,19 +117,12 @@ public class AddPlayerView {
 		frmAddPlayer.getContentPane().add(coachTitleLabel);
 
 		addButton = new JButton("Add Player");
-		addButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				TeamDAO teamdao = futbolApp.getTeamDAO();
-				int indexTeam = futbolApp.getTeamview().index;
-				teamdao.teamList.get(indexTeam).getPlayerList().add(new Player("Fran", indexTeam, indexTeam, indexTeam, null, null));
-			}
-		});
 		addButton.setBounds(519, 412, 112, 23);
 		frmAddPlayer.getContentPane().add(addButton);
 
-		deleteButton = new JButton("Cancel");
-		deleteButton.setBounds(519, 437, 112, 23);
-		frmAddPlayer.getContentPane().add(deleteButton);
+		cancelButton = new JButton("Cancel");
+		cancelButton.setBounds(519, 437, 112, 23);
+		frmAddPlayer.getContentPane().add(cancelButton);
 
 		nameTitleLabel = new JLabel("Name");
 		nameTitleLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -141,7 +134,7 @@ public class AddPlayerView {
 		frmAddPlayer.getContentPane().add(imageTextLabel);
 
 		showImageButton = new JButton("Show image");
-		showImageButton.setBounds(279, 437, 99, 23);
+		showImageButton.setBounds(258, 437, 120, 23);
 		frmAddPlayer.getContentPane().add(showImageButton);
 
 		errorImageTitleLabel = new JLabel("Image not found");
@@ -156,31 +149,29 @@ public class AddPlayerView {
 		lblCountry.setBounds(428, 287, 99, 14);
 		frmAddPlayer.getContentPane().add(lblCountry);
 
-		textField = new JTextField("");
-		textField.setBounds(438, 312, 149, 23);
-		frmAddPlayer.getContentPane().add(textField);
+		countryLabel = new JTextField("");
+		countryLabel.setBounds(438, 312, 149, 23);
+		frmAddPlayer.getContentPane().add(countryLabel);
 	}
 
 	public void setListeners() {
 
-		deleteButton.addActionListener(new ActionListener() {
+		addButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frmAddPlayer.dispose();
-				new PlayerView(futbolApp);
+				addPlayer();
 			}
 		});
 
 		showImageButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					BufferedImage img = ImageIO.read(new URL(imageTextLabel.getText()));
-					Image image = new ImageIcon(img).getImage().getScaledInstance(300, 300, Image.SCALE_DEFAULT);
-					ImageLabel.setIcon(new ImageIcon(image));
-					errorImageTitleLabel.setVisible(false);
-				} catch (Exception e2) {
-					ImageLabel.setVisible(false);
-					errorImageTitleLabel.setVisible(true);
-				}
+				showImage();
+			}
+		});
+
+		cancelButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frmAddPlayer.dispose();
+				new PlayerView(futbolApp);
 			}
 		});
 
@@ -190,5 +181,59 @@ public class AddPlayerView {
 				new PlayerView(futbolApp);
 			}
 		});
+	}
+
+	private void showImage() {
+		try {
+			BufferedImage img = ImageIO.read(new URL(imageTextLabel.getText()));
+			Image image = new ImageIcon(img).getImage().getScaledInstance(300, 300, Image.SCALE_DEFAULT);
+			ImageLabel.setIcon(new ImageIcon(image));
+			errorImageTitleLabel.setVisible(false);
+		} catch (Exception e2) {
+			ImageLabel.setVisible(false);
+			errorImageTitleLabel.setVisible(true);
+		}
+	}
+	
+	private void addPlayer() {
+
+		try {
+			int indexTeam = futbolApp.getTeamview().index;
+			PlayerDAO playerdao = futbolApp.getPlayerDAO();
+			Team team = futbolApp.getTeamDAO().teamList.get(indexTeam);
+
+			boolean emptyFields = nameLabel.getText().isEmpty() || imageTextLabel.getText().isEmpty()
+					|| yearsLabel.getText().isEmpty() || weightLabel.getText().isEmpty()
+					|| heightLabel.getText().isEmpty() || countryLabel.getText().isEmpty();
+
+			boolean existsPlayer = playerdao.checkPlayerNameTeam(team, nameLabel.getText());
+
+			if (!emptyFields && !existsPlayer) {
+
+				String name = nameLabel.getText();
+				int years = Integer.parseInt(yearsLabel.getText());
+				float weight = Float.parseFloat(weightLabel.getText());
+				float height = Float.parseFloat(heightLabel.getText());
+				String country = countryLabel.getText();
+				String img = imageTextLabel.getText();
+
+				team.getPlayerList().add(new Player(name, years, weight, height, country, img));
+
+				JOptionPane.showMessageDialog(frmAddPlayer, "Player added to squad");
+
+				frmAddPlayer.dispose();
+				new PlayerView(futbolApp);
+			}
+
+			if (emptyFields) {
+				JOptionPane.showMessageDialog(frmAddPlayer, "Empty fields");
+			}
+
+			if (existsPlayer) {
+				JOptionPane.showMessageDialog(frmAddPlayer, "Already exists with this name");
+			}
+		} catch (Exception e2) {
+			JOptionPane.showMessageDialog(frmAddPlayer, "ERROR - Check the fields");
+		}
 	}
 }

@@ -42,7 +42,8 @@ public class AddTeamView {
 	private JLabel coachTitleLabel;
 	private JLabel nameTitleLabel;
 	private JButton addButton;
-	private JButton deleteButton;
+	private JButton showImageButton;
+	private JButton cancelButton;
 	private JTextField imageTextLabel;
 
 	/**
@@ -61,6 +62,7 @@ public class AddTeamView {
 	private void initialize() {
 
 		frmAddTeam = new JFrame();
+		frmAddTeam.setResizable(false);
 		frmAddTeam.setTitle("Futbol");
 		frmAddTeam.setBounds(100, 100, 664, 510);
 		frmAddTeam.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -113,61 +115,13 @@ public class AddTeamView {
 		coachTitleLabel.setBounds(428, 249, 46, 14);
 		frmAddTeam.getContentPane().add(coachTitleLabel);
 
-		addButton = new JButton("Add");
-		addButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				TeamDAO teamdao = futbolApp.getTeamDAO();
-
-				boolean emptyFields = nameLabel.getText().isEmpty() || imageTextLabel.getText().isEmpty()
-						|| stadiumLabel.getText().isEmpty() || leagueLabel.getText().isEmpty()
-						|| coachLabel.getText().isEmpty();
-				boolean existsTeam = teamdao.checkTeamName(nameLabel.getText());
-				boolean existsCoach = teamdao.checkTeamName(coachLabel.getText());
-				boolean existsStadium = teamdao.checkStadiumName(stadiumLabel.getText());
-
-				if (!existsTeam && !existsCoach && !existsStadium && !emptyFields) {
-					ArrayList<Player> playerList = new ArrayList<Player>();
-					futbolApp.getTeamDAO().teamList.add(new Team(nameLabel.getText(), stadiumLabel.getText(),
-							leagueLabel.getText(), coachLabel.getText(), playerList, imageTextLabel.getText()));
-
-					JOptionPane.showMessageDialog(frmAddTeam, "Team created");
-
-					frmAddTeam.dispose();
-					futbolApp.getTeamview().checkButtons();
-					futbolApp.getTeamview().showTeam();
-					futbolApp.getTeamview().frmTeam.setVisible(true);
-				}
-
-				if (existsTeam) {
-					JOptionPane.showMessageDialog(frmAddTeam, "Already exists with this name");
-				}
-
-				if (existsCoach) {
-					JOptionPane.showMessageDialog(frmAddTeam, "Already exists this name coach");
-				}
-
-				if (existsStadium) {
-					JOptionPane.showMessageDialog(frmAddTeam, "Already exists this name stadium");
-				}
-				
-				if (emptyFields) {
-					JOptionPane.showMessageDialog(frmAddTeam, "Empty fields");
-				}
-			}
-		});
+		addButton = new JButton("Add Team");
 		addButton.setBounds(519, 412, 112, 23);
 		frmAddTeam.getContentPane().add(addButton);
 
-		deleteButton = new JButton("Cancel");
-		deleteButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				frmAddTeam.dispose();
-				futbolApp.getTeamview().frmTeam.setVisible(true);
-			}
-		});
-		deleteButton.setBounds(519, 437, 112, 23);
-		frmAddTeam.getContentPane().add(deleteButton);
+		cancelButton = new JButton("Cancel");
+		cancelButton.setBounds(519, 437, 112, 23);
+		frmAddTeam.getContentPane().add(cancelButton);
 
 		nameTitleLabel = new JLabel("Name");
 		nameTitleLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -178,21 +132,8 @@ public class AddTeamView {
 		imageTextLabel.setBounds(31, 411, 347, 23);
 		frmAddTeam.getContentPane().add(imageTextLabel);
 
-		JButton showImageButton = new JButton("Show image");
-		showImageButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					BufferedImage img = ImageIO.read(new URL(imageTextLabel.getText()));
-					Image image = new ImageIcon(img).getImage().getScaledInstance(300, 300, Image.SCALE_DEFAULT);
-					ImageLabel.setIcon(new ImageIcon(image));
-					errorImageTitleLabel.setVisible(false);
-				} catch (Exception e2) {
-					ImageLabel.setVisible(false);
-					errorImageTitleLabel.setVisible(true);
-				}
-			}
-		});
-		showImageButton.setBounds(279, 437, 99, 23);
+		showImageButton = new JButton("Show image");
+		showImageButton.setBounds(266, 437, 112, 23);
 		frmAddTeam.getContentPane().add(showImageButton);
 
 		errorImageTitleLabel = new JLabel("Image not found");
@@ -204,11 +145,87 @@ public class AddTeamView {
 	}
 
 	public void setListeners() {
+
+		cancelButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frmAddTeam.dispose();
+				futbolApp.getTeamview().frmTeam.setVisible(true);
+			}
+		});
+
+		addButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				addTeam();
+			}
+		});
+
+		showImageButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				showImage();
+			}
+		});
+
 		closeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frmAddTeam.dispose();
 				new TeamView(futbolApp);
 			}
 		});
+	}
+
+	private void showImage() {
+		try {
+			BufferedImage img = ImageIO.read(new URL(imageTextLabel.getText()));
+			Image image = new ImageIcon(img).getImage().getScaledInstance(300, 300, Image.SCALE_DEFAULT);
+			ImageLabel.setIcon(new ImageIcon(image));
+			errorImageTitleLabel.setVisible(false);
+		} catch (Exception e2) {
+			ImageLabel.setVisible(false);
+			errorImageTitleLabel.setVisible(true);
+		}
+	}
+	
+	private void addTeam() {
+		try {
+			TeamDAO teamdao = futbolApp.getTeamDAO();
+
+			boolean emptyFields = nameLabel.getText().isEmpty() || imageTextLabel.getText().isEmpty()
+					|| stadiumLabel.getText().isEmpty() || leagueLabel.getText().isEmpty()
+					|| coachLabel.getText().isEmpty();
+			boolean existsTeam = teamdao.checkTeamName(nameLabel.getText());
+			boolean existsCoach = teamdao.checkTeamName(coachLabel.getText());
+			boolean existsStadium = teamdao.checkStadiumName(stadiumLabel.getText());
+
+			if (!existsTeam && !existsCoach && !existsStadium && !emptyFields) {
+				ArrayList<Player> playerList = new ArrayList<Player>();
+				futbolApp.getTeamDAO().teamList.add(new Team(nameLabel.getText(), stadiumLabel.getText(),
+						leagueLabel.getText(), coachLabel.getText(), playerList, imageTextLabel.getText()));
+
+				JOptionPane.showMessageDialog(frmAddTeam, "Team created");
+
+				frmAddTeam.dispose();
+				futbolApp.getTeamview().checkButtons();
+				futbolApp.getTeamview().showTeam();
+				futbolApp.getTeamview().frmTeam.setVisible(true);
+			}
+
+			if (existsTeam) {
+				JOptionPane.showMessageDialog(frmAddTeam, "Already exists with this name");
+			}
+
+			if (existsCoach) {
+				JOptionPane.showMessageDialog(frmAddTeam, "Already exists this name coach");
+			}
+
+			if (existsStadium) {
+				JOptionPane.showMessageDialog(frmAddTeam, "Already exists this name stadium");
+			}
+
+			if (emptyFields) {
+				JOptionPane.showMessageDialog(frmAddTeam, "Empty fields");
+			}
+		} catch (Exception e2) {
+			JOptionPane.showMessageDialog(frmAddTeam, "ERROR - Check the fields");
+		}
 	}
 }

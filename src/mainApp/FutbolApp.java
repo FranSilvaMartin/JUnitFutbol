@@ -2,6 +2,7 @@ package mainApp;
 
 import java.util.ArrayList;
 
+import dao.PlayerDAO;
 import dao.TeamDAO;
 import dao.UserDAO;
 import models.Account;
@@ -14,6 +15,7 @@ import ui.TeamView;
 public class FutbolApp {
 	
 	private UserDAO userDAO;
+	private PlayerDAO playerDAO;
 	private TeamDAO teamDAO;
 	
 	private TeamView teamview;
@@ -25,6 +27,7 @@ public class FutbolApp {
 
 	public FutbolApp() {
 		this.userDAO = new UserDAO();
+		this.playerDAO = new PlayerDAO();
 		this.teamDAO = new TeamDAO();
 		addAccounts();
 		addTeams();
@@ -32,6 +35,10 @@ public class FutbolApp {
 		new LoginView(this);
 	}
 	
+	public PlayerDAO getPlayerDAO() {
+		return playerDAO;
+	}
+
 	public TeamView getTeamview() {
 		return teamview;
 	}

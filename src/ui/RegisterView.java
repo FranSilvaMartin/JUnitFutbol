@@ -48,6 +48,7 @@ public class RegisterView extends UserDAO {
 	 */
 	private void initialize() {
 		frmRegister = new JFrame();
+		frmRegister.setResizable(false);
 		frmRegister.setTitle("Futbol");
 		frmRegister.setBounds(100, 100, 538, 441);
 		frmRegister.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

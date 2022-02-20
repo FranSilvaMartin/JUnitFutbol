@@ -4,12 +4,12 @@ public class Player {
 
 	private String name;
 	private int years;
-	private int weight;
-	private int height;
+	private float weight;
+	private float height;
 	private String country;
 	private String img;
 
-	public Player(String name, int years, int weight, int height, String country, String img) {
+	public Player(String name, int years, float weight, float height, String country, String img) {
 		super();
 		this.name = name;
 		this.years = years;
@@ -19,11 +19,11 @@ public class Player {
 		this.img = img;
 	}
 
-	public int getWeight() {
+	public float getWeight() {
 		return weight;
 	}
 
-	public int getHeight() {
+	public float getHeight() {
 		return height;
 	}
 
