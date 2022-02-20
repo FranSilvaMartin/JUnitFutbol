@@ -286,17 +286,20 @@ public class TeamView {
 			nextButton.setVisible(false);
 			previousButton.setVisible(false);
 			deleteButton.setVisible(false);
+			showPlayerButton.setVisible(false);
 			return false;
 		} else {
 			if (futbolApp.getTeamDAO().teamList.size() == 1) {
 				nextButton.setVisible(false);
 				previousButton.setVisible(false);
 				deleteButton.setVisible(true);
+				showPlayerButton.setVisible(true);
 				return false;
 			} else {
 				nextButton.setVisible(true);
 				previousButton.setVisible(true);
 				deleteButton.setVisible(true);
+				showPlayerButton.setVisible(true);
 				return true;
 			}
 		}
