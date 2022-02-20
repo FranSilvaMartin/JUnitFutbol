@@ -39,7 +39,7 @@ public class PlayerDAO {
 
 	public boolean exceedsPlayerDorsal(int number) {
 
-		if (number >= 1 && number < 99) {
+		if (number >= 1 && number <= 99) {
 			return false;
 		}
 		return true;

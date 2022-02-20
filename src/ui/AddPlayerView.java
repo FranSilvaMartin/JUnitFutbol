@@ -224,8 +224,9 @@ public class AddPlayerView {
 					Integer.parseInt(dorsalNumberLabel.getText()));
 			boolean exceedsPlayerDorsal = playerdao.exceedsPlayerDorsal(Integer.parseInt(dorsalNumberLabel.getText()));
 			boolean exceedsPlayerNumbers = teamdao.exceedsPlayerNumbers(team);
-			
-			if (!emptyFields && !existsPlayer && !exceedsPlayerName && !checkPlayerDorsal && !exceedsPlayerDorsal && !exceedsPlayerNumbers) {
+
+			if (!emptyFields && !existsPlayer && !exceedsPlayerName && !checkPlayerDorsal && !exceedsPlayerDorsal
+					&& !exceedsPlayerNumbers) {
 
 				String name = nameLabel.getText();
 				int dorsal = Integer.parseInt(dorsalNumberLabel.getText());
@@ -237,7 +238,7 @@ public class AddPlayerView {
 
 				team.getPlayerList().add(new Player(name, dorsal, years, weight, height, country, img));
 
-				JOptionPane.showMessageDialog(frmAddPlayer, "Player added to squad");
+				JOptionPane.showMessageDialog(frmAddPlayer, "Player added to team");
 
 				frmAddPlayer.dispose();
 				new PlayerView(futbolApp);
@@ -258,7 +259,7 @@ public class AddPlayerView {
 			if (exceedsPlayerDorsal) {
 				JOptionPane.showMessageDialog(frmAddPlayer, "The number must be between 1 and 99");
 			}
-			
+
 			if (exceedsPlayerNumbers) {
 				JOptionPane.showMessageDialog(frmAddPlayer, "There can be no more than 11 players on the team");
 			}

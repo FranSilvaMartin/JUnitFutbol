@@ -50,6 +50,8 @@ public class PlayerView {
 	private JLabel ImageErrorTitleLabel;
 	private JLabel teamTitleLabel;
 	private JLabel teamLabel;
+	private JLabel dorsalTitleLabel;
+	private JLabel dorsalLabel;
 
 	/**
 	 * Create the application.
@@ -100,30 +102,30 @@ public class PlayerView {
 		frmTeam.getContentPane().add(ImageLabel);
 
 		countryLabel = new JLabel("");
-		countryLabel.setBounds(438, 204, 187, 23);
+		countryLabel.setBounds(438, 239, 187, 17);
 		frmTeam.getContentPane().add(countryLabel);
 
 		yearsLabel = new JLabel("");
-		yearsLabel.setBounds(438, 154, 146, 14);
+		yearsLabel.setBounds(438, 196, 146, 14);
 		frmTeam.getContentPane().add(yearsLabel);
 
 		heightLabel = new JLabel("");
-		heightLabel.setBounds(438, 263, 146, 14);
+		heightLabel.setBounds(438, 287, 146, 14);
 		frmTeam.getContentPane().add(heightLabel);
 
 		yearsTitleLabel = new JLabel("Years");
 		yearsTitleLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
-		yearsTitleLabel.setBounds(428, 129, 68, 14);
+		yearsTitleLabel.setBounds(428, 171, 68, 14);
 		frmTeam.getContentPane().add(yearsTitleLabel);
 
 		countryTitleLabel = new JLabel("Country");
 		countryTitleLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
-		countryTitleLabel.setBounds(430, 179, 99, 14);
+		countryTitleLabel.setBounds(428, 221, 99, 14);
 		frmTeam.getContentPane().add(countryTitleLabel);
 
 		heightTitleLabel = new JLabel("Height");
 		heightTitleLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
-		heightTitleLabel.setBounds(428, 238, 46, 14);
+		heightTitleLabel.setBounds(428, 267, 46, 14);
 		frmTeam.getContentPane().add(heightTitleLabel);
 
 		addButton = new JButton("Add Player");
@@ -163,21 +165,30 @@ public class PlayerView {
 
 		weightTitleLabel = new JLabel("Weight");
 		weightTitleLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
-		weightTitleLabel.setBounds(428, 295, 46, 14);
+		weightTitleLabel.setBounds(428, 312, 46, 14);
 		frmTeam.getContentPane().add(weightTitleLabel);
 
 		weightLabel = new JLabel("");
-		weightLabel.setBounds(438, 322, 146, 14);
+		weightLabel.setBounds(438, 337, 146, 14);
 		frmTeam.getContentPane().add(weightLabel);
 
 		teamTitleLabel = new JLabel("Team");
 		teamTitleLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
-		teamTitleLabel.setBounds(428, 349, 46, 14);
+		teamTitleLabel.setBounds(428, 362, 46, 14);
 		frmTeam.getContentPane().add(teamTitleLabel);
 
 		teamLabel = new JLabel("");
-		teamLabel.setBounds(438, 376, 146, 14);
+		teamLabel.setBounds(438, 387, 146, 14);
 		frmTeam.getContentPane().add(teamLabel);
+		
+		dorsalTitleLabel = new JLabel("Dorsal");
+		dorsalTitleLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
+		dorsalTitleLabel.setBounds(428, 127, 68, 14);
+		frmTeam.getContentPane().add(dorsalTitleLabel);
+		
+		dorsalLabel = new JLabel("");
+		dorsalLabel.setBounds(438, 152, 146, 14);
+		frmTeam.getContentPane().add(dorsalLabel);
 	}
 
 	public void setListeners() {
@@ -244,6 +255,7 @@ public class PlayerView {
 			showTeamEmpty();
 		} else {
 			Team team = futbolApp.getTeamDAO().teamList.get(indexTeam);
+			dorsalLabel.setText(team.getPlayerList().get(index).getDorsal() + "");
 			nameLabel.setText(team.getPlayerList().get(index).getName());
 			countryLabel.setText(team.getPlayerList().get(index).getCountry());
 			yearsLabel.setText(team.getPlayerList().get(index).getYears() + "");
@@ -269,6 +281,7 @@ public class PlayerView {
 
 	public void showTeamEmpty() {
 		nameLabel.setText("");
+		dorsalLabel.setText("");
 		countryLabel.setText("");
 		yearsLabel.setText("");
 		heightLabel.setText("");
