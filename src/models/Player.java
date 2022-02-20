@@ -3,20 +3,26 @@ package models;
 public class Player {
 
 	private String name;
+	private int dorsal;
 	private int years;
 	private float weight;
 	private float height;
 	private String country;
 	private String img;
 
-	public Player(String name, int years, float weight, float height, String country, String img) {
+	public Player(String name, int dorsal, int years, float weight, float height, String country, String img) {
 		super();
+		this.dorsal = dorsal;
 		this.name = name;
 		this.years = years;
 		this.weight = weight;
 		this.height = height;
 		this.country = country;
 		this.img = img;
+	}
+
+	public int getDorsal() {
+		return dorsal;
 	}
 
 	public float getWeight() {
@@ -38,7 +44,7 @@ public class Player {
 	public String getImg() {
 		return img;
 	}
-	
+
 	public String getCountry() {
 		return country;
 	}

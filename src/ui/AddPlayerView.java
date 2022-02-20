@@ -13,6 +13,7 @@ import java.awt.Image;
 import javax.swing.SwingConstants;
 
 import dao.PlayerDAO;
+import dao.TeamDAO;
 import mainApp.FutbolApp;
 import models.Player;
 import models.Team;
@@ -46,6 +47,7 @@ public class AddPlayerView {
 	private JTextField imageTextLabel;
 	private JLabel lblCountry;
 	private JTextField countryLabel;
+	private JTextField dorsalNumberLabel;
 
 	/**
 	 * Create the application.
@@ -90,30 +92,30 @@ public class AddPlayerView {
 		frmAddPlayer.getContentPane().add(ImageLabel);
 
 		weightLabel = new JTextField("");
-		weightLabel.setBounds(438, 191, 46, 23);
+		weightLabel.setBounds(438, 238, 46, 23);
 		frmAddPlayer.getContentPane().add(weightLabel);
 
 		yearsLabel = new JTextField("");
-		yearsLabel.setBounds(438, 129, 46, 23);
+		yearsLabel.setBounds(438, 179, 46, 23);
 		frmAddPlayer.getContentPane().add(yearsLabel);
 
 		heightLabel = new JTextField("");
-		heightLabel.setBounds(438, 250, 46, 23);
+		heightLabel.setBounds(438, 297, 46, 23);
 		frmAddPlayer.getContentPane().add(heightLabel);
 
 		leagueTitleLabel = new JLabel("Years");
 		leagueTitleLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
-		leagueTitleLabel.setBounds(428, 104, 68, 14);
+		leagueTitleLabel.setBounds(426, 163, 68, 14);
 		frmAddPlayer.getContentPane().add(leagueTitleLabel);
 
 		stadiumTitleLabel = new JLabel("Weight");
 		stadiumTitleLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
-		stadiumTitleLabel.setBounds(428, 166, 99, 14);
+		stadiumTitleLabel.setBounds(429, 213, 99, 14);
 		frmAddPlayer.getContentPane().add(stadiumTitleLabel);
 
 		coachTitleLabel = new JLabel("Height");
 		coachTitleLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
-		coachTitleLabel.setBounds(428, 225, 46, 14);
+		coachTitleLabel.setBounds(429, 272, 46, 14);
 		frmAddPlayer.getContentPane().add(coachTitleLabel);
 
 		addButton = new JButton("Add Player");
@@ -146,12 +148,21 @@ public class AddPlayerView {
 
 		lblCountry = new JLabel("Country");
 		lblCountry.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblCountry.setBounds(428, 287, 99, 14);
+		lblCountry.setBounds(428, 331, 99, 14);
 		frmAddPlayer.getContentPane().add(lblCountry);
 
 		countryLabel = new JTextField("");
-		countryLabel.setBounds(438, 312, 149, 23);
+		countryLabel.setBounds(438, 356, 149, 23);
 		frmAddPlayer.getContentPane().add(countryLabel);
+
+		dorsalNumberLabel = new JTextField("");
+		dorsalNumberLabel.setBounds(438, 133, 46, 23);
+		frmAddPlayer.getContentPane().add(dorsalNumberLabel);
+
+		JLabel dorsalNumberTitleLabel = new JLabel("Dorsal number");
+		dorsalNumberTitleLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
+		dorsalNumberTitleLabel.setBounds(426, 114, 141, 14);
+		frmAddPlayer.getContentPane().add(dorsalNumberTitleLabel);
 	}
 
 	public void setListeners() {
@@ -194,12 +205,13 @@ public class AddPlayerView {
 			errorImageTitleLabel.setVisible(true);
 		}
 	}
-	
+
 	private void addPlayer() {
 
 		try {
 			int indexTeam = futbolApp.getTeamview().index;
 			PlayerDAO playerdao = futbolApp.getPlayerDAO();
+			TeamDAO teamdao = futbolApp.getTeamDAO();
 			Team team = futbolApp.getTeamDAO().teamList.get(indexTeam);
 
 			boolean emptyFields = nameLabel.getText().isEmpty() || imageTextLabel.getText().isEmpty()
@@ -207,17 +219,23 @@ public class AddPlayerView {
 					|| heightLabel.getText().isEmpty() || countryLabel.getText().isEmpty();
 
 			boolean existsPlayer = playerdao.checkPlayerNameTeam(team, nameLabel.getText());
-
-			if (!emptyFields && !existsPlayer) {
+			boolean exceedsPlayerName = playerdao.exceedsPlayerName(nameLabel.getText());
+			boolean checkPlayerDorsal = playerdao.checkPlayerDorsal(team,
+					Integer.parseInt(dorsalNumberLabel.getText()));
+			boolean exceedsPlayerDorsal = playerdao.exceedsPlayerDorsal(Integer.parseInt(dorsalNumberLabel.getText()));
+			boolean exceedsPlayerNumbers = teamdao.exceedsPlayerNumbers(team);
+			
+			if (!emptyFields && !existsPlayer && !exceedsPlayerName && !checkPlayerDorsal && !exceedsPlayerDorsal && !exceedsPlayerNumbers) {
 
 				String name = nameLabel.getText();
+				int dorsal = Integer.parseInt(dorsalNumberLabel.getText());
 				int years = Integer.parseInt(yearsLabel.getText());
 				float weight = Float.parseFloat(weightLabel.getText());
 				float height = Float.parseFloat(heightLabel.getText());
 				String country = countryLabel.getText();
 				String img = imageTextLabel.getText();
 
-				team.getPlayerList().add(new Player(name, years, weight, height, country, img));
+				team.getPlayerList().add(new Player(name, dorsal, years, weight, height, country, img));
 
 				JOptionPane.showMessageDialog(frmAddPlayer, "Player added to squad");
 
@@ -232,6 +250,23 @@ public class AddPlayerView {
 			if (existsPlayer) {
 				JOptionPane.showMessageDialog(frmAddPlayer, "Already exists with this name");
 			}
+
+			if (exceedsPlayerName) {
+				JOptionPane.showMessageDialog(frmAddPlayer, "The name cannot be longer than 30 characters");
+			}
+
+			if (exceedsPlayerDorsal) {
+				JOptionPane.showMessageDialog(frmAddPlayer, "The number must be between 1 and 99");
+			}
+			
+			if (exceedsPlayerNumbers) {
+				JOptionPane.showMessageDialog(frmAddPlayer, "There can be no more than 11 players on the team");
+			}
+
+			if (checkPlayerDorsal) {
+				JOptionPane.showMessageDialog(frmAddPlayer, "This number already exists in the team");
+			}
+
 		} catch (Exception e2) {
 			JOptionPane.showMessageDialog(frmAddPlayer, "ERROR - Check the fields");
 		}

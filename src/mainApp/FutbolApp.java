@@ -61,10 +61,10 @@ public class FutbolApp {
 	}
 	
 	public void addPlayers() {
-		getTeamDAO().teamList.get(0).getPlayerList().add(new Player("Toni Kross", 30, 76, 183, "Alemania", "https://assets.laliga.com/squad/2021/t186/p44989/256x278/p44989_t186_2021_1_001_000.png"));
-		getTeamDAO().teamList.get(0).getPlayerList().add(new Player("Karim Benzema", 30, 81, 185, "Francia", "https://assets.laliga.com/squad/2021/t186/p19927/256x278/p19927_t186_2021_1_001_000.png"));
-		getTeamDAO().teamList.get(1).getPlayerList().add(new Player("Sergio Busquets", 30, 76, 189, "España", "https://assets.laliga.com/squad/2021/t178/p54104/256x278/p54104_t178_2021_1_001_000.png"));
-		getTeamDAO().teamList.get(1).getPlayerList().add(new Player("Ter Stegen", 30, 85, 187, "Alemania", "https://assets.laliga.com/squad/2021/t178/p77318/256x278/p77318_t178_2021_1_001_000.png"));
+		getTeamDAO().teamList.get(0).getPlayerList().add(new Player("Toni Kross", 12, 30, 76, 183, "Alemania", "https://assets.laliga.com/squad/2021/t186/p44989/256x278/p44989_t186_2021_1_001_000.png"));
+		getTeamDAO().teamList.get(0).getPlayerList().add(new Player("Karim Benzema", 14, 30, 81, 185, "Francia", "https://assets.laliga.com/squad/2021/t186/p19927/256x278/p19927_t186_2021_1_001_000.png"));
+		getTeamDAO().teamList.get(1).getPlayerList().add(new Player("Sergio Busquets", 5, 30, 76, 189, "España", "https://assets.laliga.com/squad/2021/t178/p54104/256x278/p54104_t178_2021_1_001_000.png"));
+		getTeamDAO().teamList.get(1).getPlayerList().add(new Player("Ter Stegen", 1, 30, 85, 187, "Alemania", "https://assets.laliga.com/squad/2021/t178/p77318/256x278/p77318_t178_2021_1_001_000.png"));
 	}
 	
 	public void addAccounts() {

@@ -16,6 +16,13 @@ public class TeamDAO {
 		teamList.remove(team);
 	}
 	
+	public boolean exceedsPlayerNumbers(Team team) {
+		if (team.getPlayerList().size() > 11) {
+			return true;
+		}
+		return false;
+	}
+
 	public boolean checkTeamName(String teamName) {
 		for (Team team : teamList) {
 			if (team.getName().equals(teamName)) {

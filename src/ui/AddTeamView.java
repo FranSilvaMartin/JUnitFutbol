@@ -195,7 +195,7 @@ public class AddTeamView {
 			boolean existsTeam = teamdao.checkTeamName(nameLabel.getText());
 			boolean existsCoach = teamdao.checkTeamName(coachLabel.getText());
 			boolean existsStadium = teamdao.checkStadiumName(stadiumLabel.getText());
-
+			
 			if (!existsTeam && !existsCoach && !existsStadium && !emptyFields) {
 				ArrayList<Player> playerList = new ArrayList<Player>();
 				futbolApp.getTeamDAO().teamList.add(new Team(nameLabel.getText(), stadiumLabel.getText(),
