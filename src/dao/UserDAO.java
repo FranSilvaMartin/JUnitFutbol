@@ -63,44 +63,62 @@ public class UserDAO {
 		}
 	}
 
-	public boolean checkRequirementsPassword(String passwordField) {
-
-		boolean minimumCharacters = false;
-		boolean containsUppercase = false;
-		boolean containsLowercase = false;
-		boolean containsDigit = false;
-		boolean characterSpecial = false;
-
+	public boolean checkminiumCharacters(String passwordField) {
 		if (passwordField.length() >= 6) {
-			minimumCharacters = true;
-			for (int i = 0; i < passwordField.length(); i++) {
-				if (Character.isUpperCase(passwordField.charAt(i))) {
-					containsUppercase = true;
-				}
-
-				if (Character.isLowerCase(passwordField.charAt(i))) {
-					containsLowercase = true;
-				}
-
-				if (Character.isDigit(passwordField.charAt(i))) {
-					containsDigit = true;
-				}
-
-				// Characters Specials
-				// ºª!"·$%&/()=\|#@
-			}
-
-			if (passwordField.contains("º") || passwordField.contains("ª") || passwordField.contains("!")
-					|| passwordField.contains("\"") || passwordField.contains(".") || passwordField.contains("·")
-					|| passwordField.contains("$") || passwordField.contains("%") || passwordField.contains("&")
-					|| passwordField.contains("/") || passwordField.contains("(") || passwordField.contains("(")
-					|| passwordField.contains("=") || passwordField.contains("\"") || passwordField.contains("|")
-					|| passwordField.contains("#") || passwordField.contains("@")) {
-				characterSpecial = true;
-			}
-		} else {
-			minimumCharacters = false;
+			return true;
 		}
+
+		return false;
+	}
+
+	public boolean checkConstainsUppercase(String passwordField) {
+		for (int i = 0; i < passwordField.length(); i++) {
+			if (Character.isUpperCase(passwordField.charAt(i))) {
+				return true;
+			}
+		}
+		return false;
+
+	}
+
+	public boolean checkContainsLowercase(String passwordField) {
+		for (int i = 0; i < passwordField.length(); i++) {
+			if (Character.isLowerCase(passwordField.charAt(i))) {
+				return true;
+			}
+		}
+		return false;
+
+	}
+
+	public boolean checkContainsDigit(String passwordField) {
+		for (int i = 0; i < passwordField.length(); i++) {
+			if (Character.isDigit(passwordField.charAt(i))) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean checkContainsCharacterSpecial(String passwordField) {
+
+		if (passwordField.contains("º") || passwordField.contains("ª") || passwordField.contains("!")
+				|| passwordField.contains("\"") || passwordField.contains(".") || passwordField.contains("·")
+				|| passwordField.contains("$") || passwordField.contains("%") || passwordField.contains("&")
+				|| passwordField.contains("/") || passwordField.contains("(") || passwordField.contains("(")
+				|| passwordField.contains("=") || passwordField.contains("\"") || passwordField.contains("|")
+				|| passwordField.contains("#") || passwordField.contains("@")) {
+			return true;
+		}
+		return false;
+	}
+
+	public boolean checkRequirementsPassword(String passwordField) {
+		boolean minimumCharacters = checkminiumCharacters(passwordField);
+		boolean containsUppercase = checkConstainsUppercase(passwordField);
+		boolean containsLowercase = checkContainsLowercase(passwordField);
+		boolean containsDigit = checkContainsDigit(passwordField);
+		boolean characterSpecial = checkContainsCharacterSpecial(passwordField);
 
 		if (minimumCharacters && containsUppercase && containsLowercase && containsDigit && characterSpecial) {
 			return true;
