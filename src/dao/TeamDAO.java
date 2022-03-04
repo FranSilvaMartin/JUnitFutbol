@@ -8,12 +8,12 @@ public class TeamDAO {
 
 	public ArrayList<Team> teamList = new ArrayList<Team>();
 
-	public void createTeam(Team team) {
-		teamList.add(team);
+	public boolean createTeam(Team team) {
+		return teamList.add(team);
 	}
 	
-	public void deleteTeam(Team team) {
-		teamList.remove(team);
+	public boolean deleteTeam(Team team) {
+		return teamList.remove(team);
 	}
 	
 	public boolean exceedsPlayerNumbers(Team team) {
