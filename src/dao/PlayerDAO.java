@@ -5,8 +5,12 @@ import models.Team;
 
 public class PlayerDAO {
 
-	public void deletePlayer(Team team, Player player) {
-		team.getPlayerList().remove(player);
+	public boolean addPlayer(Team team, Player player) {
+		return team.getPlayerList().add(player);
+	}
+	
+	public boolean deletePlayer(Team team, Player player) {
+		return team.getPlayerList().remove(player);
 	}
 
 	public boolean checkPlayerNameTeam(Team team, String playerName) {
@@ -33,8 +37,6 @@ public class PlayerDAO {
 			}
 		}
 		return false;
-		
-		
 	}
 
 	public boolean exceedsPlayerDorsal(int number) {
