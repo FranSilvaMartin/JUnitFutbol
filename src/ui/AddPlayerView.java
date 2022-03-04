@@ -235,9 +235,9 @@ public class AddPlayerView {
 				float height = Float.parseFloat(heightLabel.getText());
 				String country = countryLabel.getText();
 				String img = imageTextLabel.getText();
-
-				team.getPlayerList().add(new Player(name, dorsal, years, weight, height, country, img));
-
+	
+				playerdao.addPlayer(team, new Player(name, dorsal, years, weight, height, country, img));
+			
 				JOptionPane.showMessageDialog(frmAddPlayer, "Player added to team");
 
 				frmAddPlayer.dispose();
