@@ -193,7 +193,7 @@ public class RegisterView extends UserDAO {
 						"Requirements Password\n 1. min 8 characters\n 2. constains Uppercase\n 3. constains Lowercase\n 4. constains Digit\n 5. constains Characters specials");
 			}
 		} else {
-			System.out.println("Campos vacios");
+			titleError.setText("Empty Fields");
 		}
 	}
 }
