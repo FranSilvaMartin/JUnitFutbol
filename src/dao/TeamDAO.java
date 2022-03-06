@@ -23,7 +23,7 @@ public class TeamDAO {
 		return false;
 	}
 
-	public boolean checkTeamName(String teamName) {
+	public boolean existsTeamName(String teamName) {
 		for (Team team : teamList) {
 			if (team.getName().equals(teamName)) {
 				return true;
@@ -32,7 +32,7 @@ public class TeamDAO {
 		return false;
 	}
 	
-	public boolean checkCoachName(String coachName) {
+	public boolean existsCoachName(String coachName) {
 		for (Team team : teamList) {
 			if (team.getCoach().equals(coachName)) {
 				return true;
@@ -41,7 +41,7 @@ public class TeamDAO {
 		return false;
 	}
 	
-	public boolean checkStadiumName(String stadiumName) {
+	public boolean existsStadiumName(String stadiumName) {
 		for (Team team : teamList) {
 			if (team.getStadium().equals(stadiumName)) {
 				return true;

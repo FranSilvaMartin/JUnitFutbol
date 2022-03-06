@@ -18,7 +18,7 @@ public class UserDAO {
 		usernameList.add(user);
 	}
 
-	public boolean checkEmail(String email) {
+	public boolean existsEmail(String email) {
 		for (Account account : usernameList) {
 			if (account.getEmail().equals(email)) {
 				return true;
@@ -44,7 +44,7 @@ public class UserDAO {
 
 	public boolean checkRequirementsEmail(String emailField) {
 
-		boolean noExists = checkEmail(emailField);
+		boolean noExists = existsEmail(emailField);
 		boolean characterSpecial = false; // @
 		boolean endDomain = false; // .com, .es y .net
 

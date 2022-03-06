@@ -193,9 +193,9 @@ public class AddTeamView {
 			boolean emptyFields = nameLabel.getText().isEmpty() || imageTextLabel.getText().isEmpty()
 					|| stadiumLabel.getText().isEmpty() || leagueLabel.getText().isEmpty()
 					|| coachLabel.getText().isEmpty();
-			boolean existsTeam = teamdao.checkTeamName(nameLabel.getText());
-			boolean existsCoach = teamdao.checkTeamName(coachLabel.getText());
-			boolean existsStadium = teamdao.checkStadiumName(stadiumLabel.getText());
+			boolean existsTeam = teamdao.existsTeamName(nameLabel.getText());
+			boolean existsCoach = teamdao.existsTeamName(coachLabel.getText());
+			boolean existsStadium = teamdao.existsStadiumName(stadiumLabel.getText());
 			
 			if (!existsTeam && !existsCoach && !existsStadium && !emptyFields) {
 				ArrayList<Player> playerList = new ArrayList<Player>();

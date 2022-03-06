@@ -220,9 +220,9 @@ public class AddPlayerView {
 					|| yearsLabel.getText().isEmpty() || weightLabel.getText().isEmpty()
 					|| heightLabel.getText().isEmpty() || countryLabel.getText().isEmpty();
 
-			boolean existsPlayer = playerdao.checkPlayerNameTeam(team, nameLabel.getText());
+			boolean existsPlayer = playerdao.existsPlayerNameTeam(team, nameLabel.getText());
 			boolean exceedsPlayerName = playerdao.exceedsPlayerName(nameLabel.getText());
-			boolean checkPlayerDorsal = playerdao.checkPlayerDorsal(team,
+			boolean checkPlayerDorsal = playerdao.existsPlayerDorsal(team,
 					Integer.parseInt(dorsalNumberLabel.getText()));
 			boolean exceedsPlayerDorsal = playerdao.exceedsPlayerDorsal(Integer.parseInt(dorsalNumberLabel.getText()));
 			boolean exceedsPlayerNumbers = teamdao.exceedsPlayerNumbers(team);
