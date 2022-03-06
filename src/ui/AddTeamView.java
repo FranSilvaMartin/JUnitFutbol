@@ -19,6 +19,7 @@ import models.Team;
 
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
@@ -75,7 +76,7 @@ public class AddTeamView {
 		frmAddTeam.getContentPane().add(nameLabel);
 
 		closeButton = new JButton("");
-		closeButton.setIcon(new ImageIcon(AddTeamView.class.getResource("/resources/closeButtonIMG.png")));
+		closeButton.setIcon(new ImageIcon(new File("resources/closeButtonIMG.png").getAbsolutePath()));
 		closeButton.setBounds(579, 11, 52, 27);
 		closeButton.setBorderPainted(false);
 		closeButton.setContentAreaFilled(false);

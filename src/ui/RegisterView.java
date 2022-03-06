@@ -14,6 +14,7 @@ import models.Account;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
@@ -55,7 +56,7 @@ public class RegisterView extends UserDAO {
 		frmRegister.getContentPane().setLayout(null);
 
 		closeButton = new JButton("");
-		closeButton.setIcon(new ImageIcon(RegisterView.class.getResource("/resources/closeButtonIMG.png")));
+		closeButton.setIcon(new ImageIcon(new File("resources/closeButtonIMG.png").getAbsolutePath()));
 		closeButton.setOpaque(false);
 		closeButton.setFocusPainted(false);
 		closeButton.setContentAreaFilled(false);
