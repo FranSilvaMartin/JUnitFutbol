@@ -1,5 +1,10 @@
-/target/
 /.metadata/
+JUnitFutbol\bin
 **/bin/
 **/*.zip
 **/*.jar
+**/.classpath
+**/.gitignore
+**/.project
+/**/.settings/
+**/target
