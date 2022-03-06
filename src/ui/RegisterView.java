@@ -184,7 +184,7 @@ public class RegisterView extends UserDAO {
 	public void registerAccount(String email, String password, String password2) {
 
 		boolean emptyFields = email.equals("") || password.equals("") || password2.equals("");
-		boolean requirementsEmail = futbolApp.getUserDAO().checkRequirementsEmail(email);
+		boolean requirementsEmail = futbolApp.getUserDAO().hasEmailRequirements(email);
 		boolean requirementsPassword = futbolApp.getUserDAO().checkRequirementsPassword(password);
 		boolean samePassword = password.equals(password2);
 

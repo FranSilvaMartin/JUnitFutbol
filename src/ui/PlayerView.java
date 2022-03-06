@@ -193,7 +193,7 @@ public class PlayerView {
 				int confirmar = JOptionPane.showConfirmDialog(deleteButton, "Are you sure?");
 				if (confirmar == 0) {
 
-					Team team = futbolApp.getTeamDAO().teamList.get(indexTeam);
+					Team team = futbolApp.getTeamDAO().getTeamList().get(indexTeam);
 					Player player = team.getPlayerList().get(index);
 					futbolApp.getPlayerDAO().deletePlayer(team, player);
 
@@ -212,7 +212,7 @@ public class PlayerView {
 			public void actionPerformed(ActionEvent e) {
 				index--;
 				if (index < 0) {
-					index = futbolApp.getTeamDAO().teamList.get(indexTeam).getPlayerList().size() - 1;
+					index = futbolApp.getTeamDAO().getTeamList().get(indexTeam).getPlayerList().size() - 1;
 				}
 				showPlayer();
 			}
@@ -221,7 +221,7 @@ public class PlayerView {
 		nextButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				index++;
-				if (index == futbolApp.getTeamDAO().teamList.get(indexTeam).getPlayerList().size()) {
+				if (index == futbolApp.getTeamDAO().getTeamList().get(indexTeam).getPlayerList().size()) {
 					index = 0;
 				}
 				showPlayer();
@@ -241,10 +241,10 @@ public class PlayerView {
 	 */
 	public void showPlayer() {
 
-		if (futbolApp.getTeamDAO().teamList.get(indexTeam).getPlayerList().isEmpty()) {
+		if (futbolApp.getTeamDAO().getTeamList().get(indexTeam).getPlayerList().isEmpty()) {
 			showPlayerEmpty();
 		} else {
-			Team team = futbolApp.getTeamDAO().teamList.get(indexTeam);
+			Team team = futbolApp.getTeamDAO().getTeamList().get(indexTeam);
 			dorsalLabel.setText(team.getPlayerList().get(index).getDorsal() + "");
 			nameLabel.setText(team.getPlayerList().get(index).getName());
 			countryLabel.setText(team.getPlayerList().get(index).getCountry());
@@ -294,13 +294,13 @@ public class PlayerView {
 	 */
 	public boolean checkButtons() {
 
-		if (futbolApp.getTeamDAO().teamList.get(indexTeam).getPlayerList().isEmpty()) {
+		if (futbolApp.getTeamDAO().getTeamList().get(indexTeam).getPlayerList().isEmpty()) {
 			nextButton.setVisible(false);
 			previousButton.setVisible(false);
 			deleteButton.setVisible(false);
 			return false;
 		} else {
-			if (futbolApp.getTeamDAO().teamList.get(indexTeam).getPlayerList().size() == 1) {
+			if (futbolApp.getTeamDAO().getTeamList().get(indexTeam).getPlayerList().size() == 1) {
 				nextButton.setVisible(false);
 				previousButton.setVisible(false);
 				deleteButton.setVisible(true);

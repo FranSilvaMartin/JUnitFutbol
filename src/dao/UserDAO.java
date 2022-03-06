@@ -71,25 +71,15 @@ public class UserDAO {
 	 * @param emailField Nombre del email
 	 * @return Devuelve true si no cumple los requisitos
 	 */
-	public boolean checkRequirementsEmail(String emailField) {
+	public boolean hasEmailRequirements(String emailField) {
+		boolean atCharacter = emailField.contains("@"); // @
+		boolean endDomain = emailField.endsWith(".com") || emailField.endsWith(".es") || emailField.endsWith(".net");
 
-		boolean noExists = existsEmail(emailField);
-		boolean characterSpecial = false; // @
-		boolean endDomain = false; // .com, .es y .net
-
-		if (emailField.contains("@")) {
-			characterSpecial = true;
-		}
-
-		if (emailField.endsWith(".com") || emailField.endsWith(".es") || emailField.endsWith(".net")) {
-			endDomain = true;
-		}
-
-		if (!characterSpecial || !endDomain || noExists) {
-			return false;
-		} else {
+		if (atCharacter && endDomain) {
 			return true;
 		}
+		
+		return false;
 	}
 
 	/**
