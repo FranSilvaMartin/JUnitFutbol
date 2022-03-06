@@ -1,12 +1,13 @@
 package dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import models.Team;
 
 public class TeamDAO {
 
-	public ArrayList<Team> teamList = new ArrayList<Team>();
+	private ArrayList<Team> teamList = new ArrayList<Team>();
 
 	/**
 	 * Crea un equipo
@@ -84,5 +85,10 @@ public class TeamDAO {
 			}
 		}
 		return false;
+	}
+	
+	// Getters
+	public List<Team> getTeamList() {
+		return this.getTeamList();
 	}
 }

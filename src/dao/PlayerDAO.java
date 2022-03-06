@@ -64,12 +64,12 @@ public class PlayerDAO {
 	 * @return Devuelve true si ya existe ese dorsal equipado
 	 */
 	public boolean existsPlayerDorsal(Team team, int number) {
-
 		for (Player player : team.getPlayerList()) {
 			if (player.getDorsal() == number) {
 				return true;
 			}
 		}
+		
 		return false;
 	}
 
@@ -80,10 +80,10 @@ public class PlayerDAO {
 	 * @return Devuelve true si sobrepasa el limite
 	 */
 	public boolean exceedsPlayerDorsal(int number) {
-
 		if (number >= 1 && number <= 99) {
 			return false;
 		}
+		
 		return true;
 	}
 

@@ -197,7 +197,7 @@ public class AddTeamView {
 
 			if (!existsTeam && !existsCoach && !existsStadium && !emptyFields) {
 				ArrayList<Player> playerList = new ArrayList<Player>();
-				futbolApp.getTeamDAO().teamList.add(new Team(nameLabel.getText(), stadiumLabel.getText(),
+				futbolApp.getTeamDAO().getTeamList().add(new Team(nameLabel.getText(), stadiumLabel.getText(),
 						leagueLabel.getText(), coachLabel.getText(), playerList, imageTextLabel.getText()));
 
 				JOptionPane.showMessageDialog(frmAddTeam, "Team created");

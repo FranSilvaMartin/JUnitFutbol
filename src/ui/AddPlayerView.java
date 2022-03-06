@@ -210,7 +210,7 @@ public class AddPlayerView {
 			int indexTeam = futbolApp.getTeamView().index;
 			PlayerDAO playerdao = futbolApp.getPlayerDAO();
 			TeamDAO teamdao = futbolApp.getTeamDAO();
-			Team team = futbolApp.getTeamDAO().teamList.get(indexTeam);
+			Team team = futbolApp.getTeamDAO().getTeamList().get(indexTeam);
 
 			boolean emptyFields = nameLabel.getText().isEmpty() || imageTextLabel.getText().isEmpty()
 					|| ageLabel.getText().isEmpty() || weightLabel.getText().isEmpty()
