@@ -28,31 +28,14 @@ public class PlayerView {
 	public JFrame frmTeam;
 
 	private FutbolApp futbolApp;
-	private JButton closeButton;
-	private JLabel ImageLabel;
-	private JLabel nameLabel;
+	private JLabel countryLabel, ageLabel, heightLabel, ageTitleLabel, countryTitleLabel, heightTitleLabel,
+			nameTitleLabel, weightTitleLabel, weightLabel, EmptyTeams, ImageErrorTitleLabel, teamTitleLabel, teamLabel,
+			dorsalTitleLabel, dorsalLabel, nameLabel, ImageLabel;
+	private JButton previousButton, nextButton, addButton, deleteButton, closeButton;
 	private BufferedImage img;
+
 	private int index = 0;
 	public int indexTeam = 0;
-	private JLabel countryLabel;
-	private JLabel yearsLabel;
-	private JLabel heightLabel;
-	private JLabel yearsTitleLabel;
-	private JLabel countryTitleLabel;
-	private JLabel heightTitleLabel;
-	private JLabel nameTitleLabel;
-	private JLabel weightTitleLabel;
-	private JLabel weightLabel;
-	private JLabel EmptyTeams;
-	private JButton previousButton;
-	private JButton nextButton;
-	private JButton addButton;
-	private JButton deleteButton;
-	private JLabel ImageErrorTitleLabel;
-	private JLabel teamTitleLabel;
-	private JLabel teamLabel;
-	private JLabel dorsalTitleLabel;
-	private JLabel dorsalLabel;
 
 	/**
 	 * Create the application.
@@ -106,18 +89,18 @@ public class PlayerView {
 		countryLabel.setBounds(438, 239, 187, 17);
 		frmTeam.getContentPane().add(countryLabel);
 
-		yearsLabel = new JLabel("");
-		yearsLabel.setBounds(438, 196, 146, 14);
-		frmTeam.getContentPane().add(yearsLabel);
+		ageLabel = new JLabel("");
+		ageLabel.setBounds(438, 196, 146, 14);
+		frmTeam.getContentPane().add(ageLabel);
 
 		heightLabel = new JLabel("");
 		heightLabel.setBounds(438, 287, 146, 14);
 		frmTeam.getContentPane().add(heightLabel);
 
-		yearsTitleLabel = new JLabel("Years");
-		yearsTitleLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
-		yearsTitleLabel.setBounds(428, 171, 68, 14);
-		frmTeam.getContentPane().add(yearsTitleLabel);
+		ageTitleLabel = new JLabel("Years");
+		ageTitleLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
+		ageTitleLabel.setBounds(428, 171, 68, 14);
+		frmTeam.getContentPane().add(ageTitleLabel);
 
 		countryTitleLabel = new JLabel("Country");
 		countryTitleLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -181,17 +164,20 @@ public class PlayerView {
 		teamLabel = new JLabel("");
 		teamLabel.setBounds(438, 387, 146, 14);
 		frmTeam.getContentPane().add(teamLabel);
-		
+
 		dorsalTitleLabel = new JLabel("Dorsal");
 		dorsalTitleLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
 		dorsalTitleLabel.setBounds(428, 127, 68, 14);
 		frmTeam.getContentPane().add(dorsalTitleLabel);
-		
+
 		dorsalLabel = new JLabel("");
 		dorsalLabel.setBounds(438, 152, 146, 14);
 		frmTeam.getContentPane().add(dorsalLabel);
 	}
 
+	/**
+	 * Acciones de los botones
+	 */
 	public void setListeners() {
 
 		addButton.addActionListener(new ActionListener() {
@@ -250,16 +236,19 @@ public class PlayerView {
 		});
 	}
 
+	/**
+	 * Muestra al jugador
+	 */
 	public void showPlayer() {
 
 		if (futbolApp.getTeamDAO().teamList.get(indexTeam).getPlayerList().isEmpty()) {
-			showTeamEmpty();
+			showPlayerEmpty();
 		} else {
 			Team team = futbolApp.getTeamDAO().teamList.get(indexTeam);
 			dorsalLabel.setText(team.getPlayerList().get(index).getDorsal() + "");
 			nameLabel.setText(team.getPlayerList().get(index).getName());
 			countryLabel.setText(team.getPlayerList().get(index).getCountry());
-			yearsLabel.setText(team.getPlayerList().get(index).getYears() + "");
+			ageLabel.setText(team.getPlayerList().get(index).getAge() + "");
 			heightLabel.setText(team.getPlayerList().get(index).getHeight() + " cm");
 			weightLabel.setText(team.getPlayerList().get(index).getWeight() + " kg");
 			teamLabel.setText(team.getName());
@@ -280,11 +269,14 @@ public class PlayerView {
 		}
 	}
 
-	public void showTeamEmpty() {
+	/**
+	 * Muestra el jugador vacio
+	 */
+	public void showPlayerEmpty() {
 		nameLabel.setText("");
 		dorsalLabel.setText("");
 		countryLabel.setText("");
-		yearsLabel.setText("");
+		ageLabel.setText("");
 		heightLabel.setText("");
 		weightLabel.setText("");
 		teamLabel.setText("");
@@ -295,6 +287,11 @@ public class PlayerView {
 		ImageLabel.setVisible(false);
 	}
 
+	/**
+	 * Comprobar si mostrar los botones o no
+	 * 
+	 * @return Devuelve true o false
+	 */
 	public boolean checkButtons() {
 
 		if (futbolApp.getTeamDAO().teamList.get(indexTeam).getPlayerList().isEmpty()) {

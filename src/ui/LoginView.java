@@ -95,6 +95,9 @@ public class LoginView {
 
 	}
 
+	/**
+	 * Accioens de los botones
+	 */
 	public void setListeners() {
 		usernameField.addKeyListener(new KeyAdapter() {
 			@Override
@@ -130,7 +133,10 @@ public class LoginView {
 			}
 		});
 	}
-	
+
+	/**
+	 * Iniciar sesión
+	 */
 	public void loginAccount() {
 		String username = usernameField.getText();
 		String password = new String(passwordField.getPassword());

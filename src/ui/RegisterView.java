@@ -114,6 +114,9 @@ public class RegisterView extends UserDAO {
 
 	}
 
+	/**
+	 * Acciones de los botones
+	 */
 	public void setListeners() {
 
 		registerButton.addActionListener(new ActionListener() {
@@ -171,6 +174,13 @@ public class RegisterView extends UserDAO {
 		});
 	}
 
+	/**
+	 * Registrar una cuneta
+	 * 
+	 * @param email     Email
+	 * @param password  Contraseña
+	 * @param password2 Contraseña2
+	 */
 	public void registerAccount(String email, String password, String password2) {
 
 		boolean emptyFields = email.equals("") || password.equals("") || password2.equals("");

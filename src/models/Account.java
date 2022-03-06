@@ -5,6 +5,12 @@ public class Account {
 	private String email;
 	private String password;
 
+	/**
+	 * Creación de una cuenta
+	 * 
+	 * @param email    Email
+	 * @param password Contraseña
+	 */
 	public Account(String email, String password) {
 		super();
 		this.email = email;

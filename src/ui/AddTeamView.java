@@ -31,21 +31,10 @@ public class AddTeamView {
 	private JFrame frmAddTeam;
 
 	private FutbolApp futbolApp;
-	private JButton closeButton;
-	private JLabel ImageLabel;
-	private JTextField nameLabel;
-	private JTextField stadiumLabel;
-	private JTextField leagueLabel;
-	private JLabel errorImageTitleLabel;
-	private JTextField coachLabel;
-	private JLabel leagueTitleLabel;
-	private JLabel stadiumTitleLabel;
-	private JLabel coachTitleLabel;
-	private JLabel nameTitleLabel;
-	private JButton addButton;
-	private JButton showImageButton;
-	private JButton cancelButton;
-	private JTextField imageTextLabel;
+	private JButton closeButton, addButton, showImageButton, cancelButton;
+	private JTextField nameLabel, stadiumLabel, leagueLabel, coachLabel, imageTextLabel;
+	private JLabel errorImageTitleLabel, leagueTitleLabel, stadiumTitleLabel, coachTitleLabel, nameTitleLabel,
+			ImageLabel;
 
 	/**
 	 * Create the application.
@@ -145,6 +134,9 @@ public class AddTeamView {
 		frmAddTeam.getContentPane().add(errorImageTitleLabel);
 	}
 
+	/**
+	 * Acciones de los botones
+	 */
 	public void setListeners() {
 
 		cancelButton.addActionListener(new ActionListener() {
@@ -162,7 +154,7 @@ public class AddTeamView {
 
 		showImageButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				showImage();
+				showImageTeam();
 			}
 		});
 
@@ -174,7 +166,10 @@ public class AddTeamView {
 		});
 	}
 
-	private void showImage() {
+	/**
+	 * Muestra la imagen del equipo
+	 */
+	private void showImageTeam() {
 		try {
 			BufferedImage img = ImageIO.read(new URL(imageTextLabel.getText()));
 			Image image = new ImageIcon(img).getImage().getScaledInstance(300, 300, Image.SCALE_DEFAULT);
@@ -185,7 +180,10 @@ public class AddTeamView {
 			errorImageTitleLabel.setVisible(true);
 		}
 	}
-	
+
+	/**
+	 * Agrega un equipo
+	 */
 	private void addTeam() {
 		try {
 			TeamDAO teamdao = futbolApp.getTeamDAO();
@@ -196,7 +194,7 @@ public class AddTeamView {
 			boolean existsTeam = teamdao.existsTeamName(nameLabel.getText());
 			boolean existsCoach = teamdao.existsTeamName(coachLabel.getText());
 			boolean existsStadium = teamdao.existsStadiumName(stadiumLabel.getText());
-			
+
 			if (!existsTeam && !existsCoach && !existsStadium && !emptyFields) {
 				ArrayList<Player> playerList = new ArrayList<Player>();
 				futbolApp.getTeamDAO().teamList.add(new Team(nameLabel.getText(), stadiumLabel.getText(),

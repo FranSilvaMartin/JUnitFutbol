@@ -12,6 +12,16 @@ public class Team {
 	private List<Player> playerList;
 	private String img;
 
+	/**
+	 * Creación de un equipo
+	 * 
+	 * @param name       Nombre
+	 * @param stadium    Estadio
+	 * @param league     Liga
+	 * @param coach      Entrenador
+	 * @param playerList Lista de jugadores
+	 * @param img        Imagen
+	 */
 	public Team(String name, String stadium, String league, String coach, List<Player> playerList, String img) {
 		super();
 		this.name = name;

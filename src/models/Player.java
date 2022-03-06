@@ -4,17 +4,28 @@ public class Player {
 
 	private String name;
 	private int dorsal;
-	private int years;
+	private int age;
 	private float weight;
 	private float height;
 	private String country;
 	private String img;
 
-	public Player(String name, int dorsal, int years, float weight, float height, String country, String img) {
+	/**
+	 * Creación de un jugador
+	 * 
+	 * @param name    Nombre
+	 * @param dorsal  Dorsal
+	 * @param age     Edad
+	 * @param weight  Peso
+	 * @param height  Altura
+	 * @param country Nacionalidad
+	 * @param img     Imagen
+	 */
+	public Player(String name, int dorsal, int age, float weight, float height, String country, String img) {
 		super();
 		this.dorsal = dorsal;
 		this.name = name;
-		this.years = years;
+		this.age = age;
 		this.weight = weight;
 		this.height = height;
 		this.country = country;
@@ -37,8 +48,8 @@ public class Player {
 		return name;
 	}
 
-	public int getYears() {
-		return years;
+	public int getAge() {
+		return age;
 	}
 
 	public String getImg() {

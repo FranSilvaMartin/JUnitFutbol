@@ -18,7 +18,8 @@ public class PlayerDAO {
 
 	/**
 	 * Elimina un jugador de un equipo
-	 * @param team Equipo
+	 * 
+	 * @param team   Equipo
 	 * @param player Jugador
 	 * @return Devuelve true si se ha eliminado
 	 */
@@ -27,9 +28,10 @@ public class PlayerDAO {
 	}
 
 	/**
-	 * Comprueba si el nombre del 
-	 * @param team
-	 * @param playerName
+	 * Comprueba si el nombre del jugador existe en un equipo
+	 * 
+	 * @param team       Nombre del equipo
+	 * @param playerName Nombre del jugador
 	 * @return
 	 */
 	public boolean existsPlayerNameTeam(Team team, String playerName) {
@@ -41,6 +43,12 @@ public class PlayerDAO {
 		return false;
 	}
 
+	/**
+	 * Comprueba si el nombre del jugador es menor que 30
+	 * 
+	 * @param playerName Nombre del jugador
+	 * @return Devuelve true si sobrepasa el limite de 30
+	 */
 	public boolean exceedsPlayerName(String playerName) {
 		if (playerName.length() > 30) {
 			return true;
@@ -48,6 +56,13 @@ public class PlayerDAO {
 		return false;
 	}
 
+	/**
+	 * Comprueba si el dorsal existe en el equipo
+	 * 
+	 * @param team   Equipo
+	 * @param number Numero de dorsal
+	 * @return Devuelve true si ya existe ese dorsal equipado
+	 */
 	public boolean existsPlayerDorsal(Team team, int number) {
 
 		for (Player player : team.getPlayerList()) {
@@ -58,6 +73,12 @@ public class PlayerDAO {
 		return false;
 	}
 
+	/**
+	 * Comprueba si el dorsal esta entre el 1 y 99
+	 * 
+	 * @param number Numero de dorsal
+	 * @return Devuelve true si sobrepasa el limite
+	 */
 	public boolean exceedsPlayerDorsal(int number) {
 
 		if (number >= 1 && number <= 99) {

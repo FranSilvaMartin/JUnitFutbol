@@ -27,27 +27,12 @@ public class TeamView {
 	public JFrame frmTeam;
 
 	private FutbolApp futbolApp;
-	private JButton closeButton;
-	private JLabel ImageLabel;
-	private JLabel nameLabel;
+	private JLabel ImageLabel, nameLabel, stadiumLabel, leagueLabel, coachLabel, numberPlayersLabel, leagueTitleLabel,
+			stadiumTitleLabel, coachTitleLabel, numPlayerTitleLabel, nameTitleLabel, EmptyTeams, ImageErrorTitleLabel;
+	private JButton closeButton, previousButton, nextButton, addButton, deleteButton, showPlayerButton;
+
 	private BufferedImage img;
 	public int index = 0;
-	private JLabel stadiumLabel;
-	private JLabel leagueLabel;
-	private JLabel coachLabel;
-	private JLabel numberPlayersLabel;
-	private JLabel leagueTitleLabel;
-	private JLabel stadiumTitleLabel;
-	private JLabel coachTitleLabel;
-	private JLabel lblNewLabel;
-	private JLabel nameTitleLabel;
-	private JLabel EmptyTeams;
-	private JButton previousButton;
-	private JButton nextButton;
-	private JButton addButton;
-	private JButton deleteButton;
-	private JButton showPlayerButton;
-	private JLabel ImageErrorTitleLabel;
 
 	/**
 	 * Create the application.
@@ -128,10 +113,10 @@ public class TeamView {
 		coachTitleLabel.setBounds(428, 238, 46, 14);
 		frmTeam.getContentPane().add(coachTitleLabel);
 
-		lblNewLabel = new JLabel("Number of players");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel.setBounds(428, 288, 117, 14);
-		frmTeam.getContentPane().add(lblNewLabel);
+		numPlayerTitleLabel = new JLabel("Number of players");
+		numPlayerTitleLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
+		numPlayerTitleLabel.setBounds(428, 288, 117, 14);
+		frmTeam.getContentPane().add(numPlayerTitleLabel);
 
 		addButton = new JButton("Add Team");
 		addButton.setBounds(488, 412, 125, 23);
@@ -173,6 +158,9 @@ public class TeamView {
 		frmTeam.getContentPane().add(ImageErrorTitleLabel);
 	}
 
+	/**
+	 * Acciones de los botones
+	 */
 	public void setListeners() {
 
 		showPlayerButton.addActionListener(new ActionListener() {
@@ -181,7 +169,7 @@ public class TeamView {
 				new PlayerView(futbolApp);
 			}
 		});
-		
+
 		addButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frmTeam.setVisible(false);
@@ -236,6 +224,9 @@ public class TeamView {
 		});
 	}
 
+	/**
+	 * Muestra el equipo
+	 */
 	public void showTeam() {
 		if (futbolApp.getTeamDAO().teamList.isEmpty()) {
 			showTeamEmpty();
@@ -268,6 +259,9 @@ public class TeamView {
 		}
 	}
 
+	/**
+	 * Muestra el equipo vacio
+	 */
 	public void showTeamEmpty() {
 		nameLabel.setText("");
 		stadiumLabel.setText("");
@@ -281,6 +275,11 @@ public class TeamView {
 		ImageLabel.setVisible(false);
 	}
 
+	/**
+	 * Comprobar si mostrar los botones o no
+	 * 
+	 * @return Devuelve true o false
+	 */
 	public boolean checkButtons() {
 
 		if (futbolApp.getTeamDAO().teamList.isEmpty()) {

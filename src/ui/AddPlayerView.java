@@ -31,24 +31,11 @@ public class AddPlayerView {
 	private JFrame frmAddPlayer;
 
 	private FutbolApp futbolApp;
-	private JButton closeButton;
-	private JButton showImageButton;
-	private JLabel ImageLabel;
-	private JTextField nameLabel;
-	private JTextField weightLabel;
-	private JTextField yearsLabel;
-	private JLabel errorImageTitleLabel;
-	private JTextField heightLabel;
-	private JLabel leagueTitleLabel;
-	private JLabel stadiumTitleLabel;
-	private JLabel coachTitleLabel;
-	private JLabel nameTitleLabel;
-	private JButton addButton;
-	private JButton cancelButton;
-	private JTextField imageTextLabel;
-	private JLabel lblCountry;
-	private JTextField countryLabel;
-	private JTextField dorsalNumberLabel;
+	private JButton closeButton, showImageButton;
+	private JLabel ImageLabel, errorImageTitleLabel, leagueTitleLabel, stadiumTitleLabel, coachTitleLabel,
+			nameTitleLabel, lblCountry;
+	private JTextField nameLabel, weightLabel, ageLabel, heightLabel, imageTextLabel, countryLabel, dorsalNumberLabel;
+	private JButton addButton, cancelButton;
 
 	/**
 	 * Create the application.
@@ -79,7 +66,7 @@ public class AddPlayerView {
 		frmAddPlayer.getContentPane().add(nameLabel);
 
 		closeButton = new JButton("");
-		
+
 		closeButton.setIcon(new ImageIcon(new File("resources/closeButtonIMG.png").getAbsolutePath()));
 		closeButton.setBounds(579, 11, 52, 27);
 		closeButton.setBorderPainted(false);
@@ -97,9 +84,9 @@ public class AddPlayerView {
 		weightLabel.setBounds(438, 238, 46, 23);
 		frmAddPlayer.getContentPane().add(weightLabel);
 
-		yearsLabel = new JTextField("");
-		yearsLabel.setBounds(438, 179, 46, 23);
-		frmAddPlayer.getContentPane().add(yearsLabel);
+		ageLabel = new JTextField("");
+		ageLabel.setBounds(438, 179, 46, 23);
+		frmAddPlayer.getContentPane().add(ageLabel);
 
 		heightLabel = new JTextField("");
 		heightLabel.setBounds(438, 297, 46, 23);
@@ -167,6 +154,9 @@ public class AddPlayerView {
 		frmAddPlayer.getContentPane().add(dorsalNumberTitleLabel);
 	}
 
+	/**
+	 * Acciones de los botones
+	 */
 	public void setListeners() {
 
 		addButton.addActionListener(new ActionListener() {
@@ -196,6 +186,9 @@ public class AddPlayerView {
 		});
 	}
 
+	/**
+	 * Muestra la imagen
+	 */
 	private void showImage() {
 		try {
 			BufferedImage img = ImageIO.read(new URL(imageTextLabel.getText()));
@@ -208,6 +201,9 @@ public class AddPlayerView {
 		}
 	}
 
+	/**
+	 * Agrega un jugador
+	 */
 	private void addPlayer() {
 
 		try {
@@ -217,7 +213,7 @@ public class AddPlayerView {
 			Team team = futbolApp.getTeamDAO().teamList.get(indexTeam);
 
 			boolean emptyFields = nameLabel.getText().isEmpty() || imageTextLabel.getText().isEmpty()
-					|| yearsLabel.getText().isEmpty() || weightLabel.getText().isEmpty()
+					|| ageLabel.getText().isEmpty() || weightLabel.getText().isEmpty()
 					|| heightLabel.getText().isEmpty() || countryLabel.getText().isEmpty();
 
 			boolean existsPlayer = playerdao.existsPlayerNameTeam(team, nameLabel.getText());
@@ -232,14 +228,14 @@ public class AddPlayerView {
 
 				String name = nameLabel.getText();
 				int dorsal = Integer.parseInt(dorsalNumberLabel.getText());
-				int years = Integer.parseInt(yearsLabel.getText());
+				int years = Integer.parseInt(ageLabel.getText());
 				float weight = Float.parseFloat(weightLabel.getText());
 				float height = Float.parseFloat(heightLabel.getText());
 				String country = countryLabel.getText();
 				String img = imageTextLabel.getText();
-	
+
 				playerdao.addPlayer(team, new Player(name, dorsal, years, weight, height, country, img));
-			
+
 				JOptionPane.showMessageDialog(frmAddPlayer, "Player added to team");
 
 				frmAddPlayer.dispose();
