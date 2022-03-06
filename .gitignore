@@ -1,7 +1,6 @@
 /.metadata/
 JUnitFutbol\bin
 JUnitFutbol\.classpath
-**/bin/
 **/*.zip
 **/*.jar
 **/.classpath
