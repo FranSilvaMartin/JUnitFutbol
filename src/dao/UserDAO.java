@@ -4,6 +4,12 @@ import java.util.ArrayList;
 
 import models.Account;
 
+/**
+ * Gestión de los usuarios en la base de datos
+ * 
+ * @author alumno
+ *
+ */
 public class UserDAO {
 
 	public ArrayList<Account> usernameList = new ArrayList<Account>();
@@ -78,7 +84,7 @@ public class UserDAO {
 		if (atCharacter && endDomain) {
 			return true;
 		}
-		
+
 		return false;
 	}
 

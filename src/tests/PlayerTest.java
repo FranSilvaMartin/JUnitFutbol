@@ -12,12 +12,18 @@ import dao.PlayerDAO;
 import models.Player;
 import models.Team;
 
+/**
+ * Conjunto de test sobre los jugadores usando JUnit
+ * 
+ * @author alumno
+ *
+ */
 class PlayerTest {
 
 	private PlayerDAO playerDAO;
 	private Team team;
 	private Player player;
-	
+
 	@BeforeEach
 	@Test
 	void setupDefaults() {
@@ -26,17 +32,17 @@ class PlayerTest {
 		this.player = new Player("test", 1, 18, 70.0F, 1.68F, "test", "test");
 		playerDAO.addPlayer(team, player);
 	}
-	
+
 	@Test
 	void addPlayerTest() {
 		assertTrue(playerDAO.addPlayer(team, player));
 	}
-	
+
 	@Test
 	void deletePlayerTest() {
 		assertTrue(playerDAO.deletePlayer(team, player));
 	}
-	
+
 	@Test
 	void exceedsPlayerName() {
 		String playerName = "Nicolás";
@@ -44,13 +50,13 @@ class PlayerTest {
 		assertTrue(playerDAO.exceedsPlayerName(longPlayerName));
 		assertFalse(playerDAO.exceedsPlayerName(playerName));
 	}
-	
+
 	@Test
 	void existsPlayerDorsal() {
 		assertTrue(playerDAO.existsPlayerDorsal(team, 1));
 		assertFalse(playerDAO.existsPlayerDorsal(team, 2));
 	}
-	
+
 	@Test
 	void exceedsPlayerDorsal() {
 		assertTrue(playerDAO.exceedsPlayerDorsal(100));

@@ -5,6 +5,12 @@ import java.util.List;
 
 import models.Team;
 
+/**
+ * Gestión de los equipos en la base de datos
+ * 
+ * @author alumno
+ *
+ */
 public class TeamDAO {
 
 	private ArrayList<Team> teamList = new ArrayList<Team>();
@@ -86,7 +92,7 @@ public class TeamDAO {
 		}
 		return false;
 	}
-	
+
 	// Getters
 	public List<Team> getTeamList() {
 		return this.getTeamList();

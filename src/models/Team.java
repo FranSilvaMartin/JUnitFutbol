@@ -3,6 +3,12 @@ package models;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Modelo de equipo
+ * 
+ * @author alumno
+ *
+ */
 public class Team {
 
 	private String name;

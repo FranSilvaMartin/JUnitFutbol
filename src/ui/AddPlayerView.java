@@ -26,6 +26,11 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import java.awt.Color;
 
+/**
+ * 
+ * @author alumno
+ *
+ */
 public class AddPlayerView {
 
 	private JFrame frmAddPlayer;

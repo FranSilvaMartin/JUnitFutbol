@@ -1,5 +1,11 @@
 package models;
 
+/**
+ * Modelo de player
+ * 
+ * @author alumno
+ *
+ */
 public class Player {
 
 	private String name;

@@ -12,6 +12,11 @@ import ui.LoginView;
 import ui.PlayerView;
 import ui.TeamView;
 
+/**
+ * Manager para la aplicación, se encarga de gestionarlo
+ * @author alumno
+ *
+ */
 public class FutbolApp {
 
 	private UserDAO userDAO;

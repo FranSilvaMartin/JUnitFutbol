@@ -1,5 +1,11 @@
 package models;
 
+/**
+ * Modelo de Account
+ * 
+ * @author alumno
+ *
+ */
 public class Account {
 
 	private String email;

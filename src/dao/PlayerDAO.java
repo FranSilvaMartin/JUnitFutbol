@@ -3,6 +3,12 @@ package dao;
 import models.Player;
 import models.Team;
 
+/**
+ * Gestión de los jugadores en la base de datos
+ * 
+ * @author alumno
+ *
+ */
 public class PlayerDAO {
 
 	/**
@@ -69,7 +75,7 @@ public class PlayerDAO {
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
 
@@ -83,7 +89,7 @@ public class PlayerDAO {
 		if (number >= 1 && number <= 99) {
 			return false;
 		}
-		
+
 		return true;
 	}
 
