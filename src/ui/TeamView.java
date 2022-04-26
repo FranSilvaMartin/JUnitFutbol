@@ -22,6 +22,12 @@ import java.net.URL;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 
+/**
+ * Ventana para mostrar la lista de equipos
+ * 
+ * @author Fran Silva
+ *
+ */
 public class TeamView {
 
 	public JFrame frmTeam;
@@ -35,7 +41,7 @@ public class TeamView {
 	public int index = 0;
 
 	/**
-	 * Create the application.
+	 * Inicia la aplicación
 	 */
 	public TeamView(FutbolApp futbolApp) {
 		this.futbolApp = futbolApp;
@@ -51,7 +57,7 @@ public class TeamView {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Inicializa los componentes de la ventana
 	 */
 	private void initialize() {
 

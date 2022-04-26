@@ -8,11 +8,14 @@ import models.Team;
 /**
  * Gestión de los equipos en la base de datos
  * 
- * @author alumno
+ * @author Fran Silva
  *
  */
 public class TeamDAO {
 
+	/**
+	 * Lista de los equipos
+	 */
 	private ArrayList<Team> teamList = new ArrayList<Team>();
 
 	/**
@@ -93,7 +96,11 @@ public class TeamDAO {
 		return false;
 	}
 
-	// Getters
+	/**
+	 * Obtiene la lista de todos los equipos
+	 * 
+	 * @return Devuelve la lista
+	 */
 	public List<Team> getTeamList() {
 		return this.getTeamList();
 	}

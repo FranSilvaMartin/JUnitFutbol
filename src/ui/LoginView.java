@@ -15,6 +15,12 @@ import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
 import java.awt.Color;
 
+/**
+ * Ventana para iniciar sesión
+ * 
+ * @author Fran Silva
+ *
+ */
 public class LoginView {
 
 	private JFrame frmLogin;
@@ -26,7 +32,7 @@ public class LoginView {
 	private FutbolApp futbolApp;
 
 	/**
-	 * Create the application.
+	 * Inicia la aplicación
 	 */
 	public LoginView(FutbolApp futbolApp) {
 		this.futbolApp = futbolApp;
@@ -36,7 +42,7 @@ public class LoginView {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Inicializa los componentes de la ventana
 	 */
 	private void initialize() {
 		frmLogin = new JFrame();

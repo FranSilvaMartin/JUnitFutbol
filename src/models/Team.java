@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Modelo de equipo
  * 
- * @author alumno
+ * @author Fran Silva
  *
  */
 public class Team {
@@ -38,28 +38,67 @@ public class Team {
 		this.img = img;
 	}
 
+	/**
+	 * Obtiene el nombre del equipo
+	 * 
+	 * @return Devuelve el nombre
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Obtiene el estadio del equipo
+	 * 
+	 * @return Devuelve el estadio
+	 */
 	public String getStadium() {
 		return stadium;
 	}
 
+	/**
+	 * Obtiene la liga del equipo
+	 * 
+	 * @return Devuelve la liga
+	 */
 	public String getLeague() {
 		return league;
 	}
 
+	/**
+	 * Obtiene el entrenador del equipo
+	 * 
+	 * @return Devuelve el entrenador
+	 */
 	public String getCoach() {
 		return coach;
 	}
 
+	/**
+	 * Obtiene una lista con todos los jugadores del equipo
+	 * 
+	 * @return Devuelve una lista
+	 */
 	public List<Player> getPlayerList() {
 		return playerList;
 	}
 
+	/**
+	 * Obtiene la imagen del equipo
+	 * 
+	 * @return Devuelve la imagen
+	 */
 	public String getImg() {
 		return img;
+	}
+
+	/*
+	 * Muestra el equipo por pantalla
+	 */
+	@Override
+	public String toString() {
+		return "Team [name=" + name + ", stadium=" + stadium + ", league=" + league + ", coach=" + coach
+				+ ", playerList=" + playerList + ", img=" + img + "]";
 	}
 
 }

@@ -22,6 +22,12 @@ import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JTextArea;
 
+/**
+ * Ventana para registrar una cuenta
+ * 
+ * @author Fran Silva
+ *
+ */
 public class RegisterView extends UserDAO {
 
 	private JFrame frmRegister;
@@ -35,7 +41,7 @@ public class RegisterView extends UserDAO {
 	private JTextArea titleError;
 
 	/**
-	 * Create the application.
+	 * Inicia la aplicación
 	 */
 	public RegisterView(FutbolApp futbolApp) {
 		this.futbolApp = futbolApp;
@@ -45,7 +51,7 @@ public class RegisterView extends UserDAO {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Inicializa los componentes de la ventana
 	 */
 	private void initialize() {
 		frmRegister = new JFrame();

@@ -15,8 +15,8 @@ import models.Team;
 /**
  * Conjunto de test sobre los jugadores usando JUnit
  * 
- * @author alumno
- *
+ * @author Fran Silva y Mohamed
+ * @see <a>https://junit.org/junit5/</a>
  */
 class PlayerTest {
 
@@ -24,6 +24,9 @@ class PlayerTest {
 	private Team team;
 	private Player player;
 
+	/**
+	 * Settings por defecto
+	 */
 	@BeforeEach
 	@Test
 	void setupDefaults() {
@@ -33,16 +36,25 @@ class PlayerTest {
 		playerDAO.addPlayer(team, player);
 	}
 
+	/**
+	 * Test para agregar un jugador a un equipo
+	 */
 	@Test
 	void addPlayerTest() {
 		assertTrue(playerDAO.addPlayer(team, player));
 	}
 
+	/**
+	 * Test para eliminar a un jugador a un equipo
+	 */
 	@Test
 	void deletePlayerTest() {
 		assertTrue(playerDAO.deletePlayer(team, player));
 	}
 
+	/**
+	 * Test para comprobar si el nombre del jugador ha excedido el límite
+	 */
 	@Test
 	void exceedsPlayerName() {
 		String playerName = "Nicolás";
@@ -51,12 +63,18 @@ class PlayerTest {
 		assertFalse(playerDAO.exceedsPlayerName(playerName));
 	}
 
+	/**
+	 * Test para comprobar si ya existe ese dorsal en el equipo
+	 */
 	@Test
 	void existsPlayerDorsal() {
 		assertTrue(playerDAO.existsPlayerDorsal(team, 1));
 		assertFalse(playerDAO.existsPlayerDorsal(team, 2));
 	}
 
+	/**
+	 * Test para comprobar si ya excecido el límite de dorsal elegido
+	 */
 	@Test
 	void exceedsPlayerDorsal() {
 		assertTrue(playerDAO.exceedsPlayerDorsal(100));

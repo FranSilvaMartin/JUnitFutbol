@@ -12,7 +12,7 @@ import models.Account;
 /**
  * Conjunto de test para los usuarios usando JUnit
  * 
- * @author alumno
+ * @author Fran Silva y Mohamed
  * @see <a>https://junit.org/junit5/</a>
  */
 class UserTest {

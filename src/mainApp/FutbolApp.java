@@ -14,7 +14,8 @@ import ui.TeamView;
 
 /**
  * Manager para la aplicación, se encarga de gestionarlo
- * @author alumno
+ * 
+ * @author Fran Silva
  *
  */
 public class FutbolApp {
@@ -39,26 +40,56 @@ public class FutbolApp {
 		new LoginView(this);
 	}
 
+	/**
+	 * Obtiene la clase playerDAO
+	 * 
+	 * @return Devuelve playerDAO
+	 */
 	public PlayerDAO getPlayerDAO() {
 		return playerDAO;
 	}
 
+	/**
+	 * Obtiene la ventana de teamView
+	 * 
+	 * @return Devuelve teamView
+	 */
 	public TeamView getTeamView() {
 		return teamview;
 	}
 
+	/**
+	 * Modifica la ventana de TeamView
+	 * 
+	 * @param teamview TeamView
+	 */
 	public void setTeamView(TeamView teamview) {
 		this.teamview = teamview;
 	}
 
+	/**
+	 * Obtiene la ventana de playerView
+	 * 
+	 * @return Devuelve playerView
+	 */
 	public PlayerView getPlayerView() {
 		return playerview;
 	}
 
+	/**
+	 * Obtiene la clase userDAO
+	 * 
+	 * @return Devuelve userDAO
+	 */
 	public UserDAO getUserDAO() {
 		return userDAO;
 	}
 
+	/**
+	 * Obtiene la clase teamDAO
+	 * 
+	 * @return Devuelve teamDAO
+	 */
 	public TeamDAO getTeamDAO() {
 		return teamDAO;
 	}

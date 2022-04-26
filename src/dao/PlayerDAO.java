@@ -6,7 +6,7 @@ import models.Team;
 /**
  * Gestión de los jugadores en la base de datos
  * 
- * @author alumno
+ * @author Fran Silva
  *
  */
 public class PlayerDAO {

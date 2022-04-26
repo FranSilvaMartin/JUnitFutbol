@@ -27,8 +27,9 @@ import javax.swing.JTextField;
 import java.awt.Color;
 
 /**
+ * Ventana para agregar un jugador a un equipo
  * 
- * @author alumno
+ * @author Fran Silva
  *
  */
 public class AddPlayerView {
@@ -43,7 +44,7 @@ public class AddPlayerView {
 	private JButton addButton, cancelButton;
 
 	/**
-	 * Create the application.
+	 * Inicia la aplicación
 	 */
 	public AddPlayerView(FutbolApp futbolApp) {
 		this.futbolApp = futbolApp;
@@ -53,7 +54,7 @@ public class AddPlayerView {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Inicializa los componentes de la ventana
 	 */
 	private void initialize() {
 

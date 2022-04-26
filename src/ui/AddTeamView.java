@@ -26,6 +26,12 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import java.awt.Color;
 
+/**
+ * Ventana para agregar un equipo
+ * 
+ * @author Fran Silva
+ *
+ */
 public class AddTeamView {
 
 	private JFrame frmAddTeam;
@@ -37,7 +43,7 @@ public class AddTeamView {
 			ImageLabel;
 
 	/**
-	 * Create the application.
+	 * Inicia la aplicación
 	 */
 	public AddTeamView(FutbolApp futbolApp) {
 		this.futbolApp = futbolApp;
@@ -47,7 +53,7 @@ public class AddTeamView {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Inicializa los componentes de la ventana
 	 */
 	private void initialize() {
 

@@ -7,11 +7,14 @@ import models.Account;
 /**
  * Gestión de los usuarios en la base de datos
  * 
- * @author alumno
+ * @author Fran Silva
  *
  */
 public class UserDAO {
 
+	/**
+	 * Lista de todos los usuarios
+	 */
 	public ArrayList<Account> usernameList = new ArrayList<Account>();
 
 	/**

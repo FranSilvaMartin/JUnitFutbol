@@ -23,6 +23,12 @@ import java.net.URL;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 
+/**
+ * Ventana para mostrar los jugadores de un equipo
+ * 
+ * @author Fran Silva
+ *
+ */
 public class PlayerView {
 
 	public JFrame frmTeam;
@@ -38,7 +44,7 @@ public class PlayerView {
 	public int indexTeam = 0;
 
 	/**
-	 * Create the application.
+	 * Inicia la aplicación
 	 */
 	public PlayerView(FutbolApp futbolApp) {
 		this.futbolApp = futbolApp;
@@ -54,7 +60,7 @@ public class PlayerView {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Inicializa los componentes de la ventana
 	 */
 	private void initialize() {
 
